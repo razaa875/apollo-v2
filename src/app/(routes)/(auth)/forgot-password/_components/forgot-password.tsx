@@ -51,7 +51,7 @@ export default function ForgotPassword() {
     }
     return (
         <main className="w-[85%] mx-auto mt-20">
-            <h1 className="text-lg lg:text-4xl">Forgot Password?</h1>
+            <h1 className="text-lg lg:text-2xl">Forgot Password?</h1>
             <p className="font-light text-base mt-2">An email will be sent on your email to reset your password.</p>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">

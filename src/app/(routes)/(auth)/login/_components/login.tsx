@@ -60,8 +60,8 @@ export default function Login() {
     };
 
     return (
-        <main className="w-[85%] mx-auto mt-20">
-            <h1 className="text-lg lg:text-4xl">Log in</h1>
+        <main className="w-[85%] mx-auto mt-8 lg:mt-20">
+            <h1 className="text-lg lg:text-2xl">Log in</h1>
             <p className="font-light text-base mt-2">Welcome back, Please put your login credentials below to start using the dashboard.</p>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
@@ -99,7 +99,7 @@ export default function Login() {
                     </div>
                     <Button loading={isLoading} disabled={isLoading} variant="pill" type="submit" fullWidth className="mt-4">Login</Button>
                     <div className="flex items-center justify-center text-[#218FDA] hover:text-white hover:bg-[#218FDA] rounded-full transition font-medium text-base mt-2">
-                        <Link href='/sign-up' className="w-full border border-primary px-4 h-10 text-center flex items-center justify-center rounded-full">Sign Up</Link>
+                        <Link href='/sign-up' className="w-full border border-primary px-4 h-8 md:h-10 text-center flex items-center justify-center rounded-full">Sign Up</Link>
                     </div>
                 </form>
             </Form>

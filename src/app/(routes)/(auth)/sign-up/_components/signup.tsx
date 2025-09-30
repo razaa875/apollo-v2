@@ -71,8 +71,8 @@ export default function SignupScreen() {
   }
 
   return (
-    <div className="w-[85%] mx-auto mt-10">
-      <h1 className="text-lg lg:text-4xl">Sign Up</h1>
+    <div className="w-[90%] lg:w-[85%] mx-auto mt-10">
+      <h1 className="text-lg lg:text-2xl">Sign Up</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
 
@@ -168,7 +168,7 @@ export default function SignupScreen() {
             <div className="flex items-center justify-center text-[#218FDA] hover:text-white hover:bg-[#218FDA] rounded-full transition font-medium text-base mt-2">
               <Link
                 href="/login"
-                className="w-full border border-primary px-4 h-10 text-center flex items-center justify-center rounded-full"
+                className="w-full border border-primary px-4 h-8 md:h-10 text-center flex items-center justify-center rounded-full"
               >
                 Login
               </Link>

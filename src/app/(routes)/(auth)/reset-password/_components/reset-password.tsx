@@ -64,10 +64,10 @@ export default function ResetPassword() {
 
     return (
         <main className="w-[85%] mx-auto mt-20">
-            <h1 className="text-lg lg:text-4xl">Reset Your Password</h1>
+            <h1 className="text-lg lg:text-2xl">Reset Your Password</h1>
             <p className="font-light text-base mt-2">Enter your new password below.</p>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 lg:mt-4">
                     <FormField
                         control={form.control}
                         name="newPassword"
@@ -96,7 +96,7 @@ export default function ResetPassword() {
                     />
                     <Button loading={isLoading} disabled={isLoading} variant="pill" type="submit" fullWidth className="mt-4">Reset Password</Button>
                     <div className="flex items-center justify-center text-[#218FDA] hover:text-white hover:bg-[#218FDA] rounded-full transition font-medium text-base mt-2">
-                        <Link href='/login' className="w-full border border-primary px-4 h-10 text-center flex items-center justify-center rounded-full">Back to Login</Link>
+                        <Link href='/login' className="w-full border border-primary px-4 h-8 md:h-10 text-center flex items-center justify-center rounded-full">Back to Login</Link>
                     </div>
                 </form>
             </Form>
