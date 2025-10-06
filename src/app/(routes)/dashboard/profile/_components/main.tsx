@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Controller, useForm } from "react-hook-form";
+import { parseISO, format } from 'date-fns';
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,9 @@ import { ProfilePictureUpload } from "./profile-picture-upload";
 import { useAuth, useProfile } from "@/providers";
 
 import { apiService } from "@/common/services";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
+import { IUser } from "@/common/models/interface";
 
 // import { Loader2 } from "lucide-react";
 // import { IUserProfile } from "@/common/models/interface";
@@ -28,14 +32,20 @@ type ICountry = { id: number; name: string };
 type ICity = { id: number; name: string };
 
 type FormValues = {
-  firstName: string;
-  lastName: string;
+  id: number;
+  firstName: string,
+  lastName: string,
+  name: string;
   email: string;
-  phone: string;
+  role: string;
   address: string;
-  country: string; // countryId
-  city: string; // cityId
-  image: string;
+  created_at: string;
+  date_of_birth: string;
+  gender: string;
+  last_login: string
+  phone_number: string;
+  profile_picture_url: string | null;
+  status: string;
 };
 
 export const ProfileMain = () => {
@@ -43,134 +53,125 @@ export const ProfileMain = () => {
   const { signout } = useAuth();
 
   const [loading, setLoading] = useState(false);
-  const [loadingCountries, setLoadingCountries] = useState(false);
-  const [loadingCities, setLoadingCities] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [cities, setCities] = useState<ICity[]>([]);
-  const [countries, setCountries] = useState<ICountry[]>([]);
+  const initials = useMemo(() => {
+    if (!user) return '';
+    if (!user.profile_picture_url) {
+      const parts = user.name.trim().split(' ');
+      return parts && parts.length > 1 ? parts[0][0].toUpperCase() + parts[1][0].toUpperCase() : parts[0][0].toUpperCase();
+    }
+    return '';
+  }, [user]);
 
   const { control, register, setValue, reset } =
     useForm<FormValues>();
 
-  const fetchCities = (countryId: number) => {
-    setLoadingCities(true);
-    apiService
-      .httpGetRequest<{ cities: ICity[] }>(
-        `api/v1/country/${countryId}/cities`,
-        ""
-      )
-      .subscribe({
-        next: (res) => {
-          setCities(res.cities);
-          setLoadingCities(false);
-        },
-        error: (err) => {
-          console.log("Error fetching cities:", err.message);
-          setLoadingCities(false);
-        },
-      });
-  };
-
   const uploadPhoto = (file: File | null) => {
     if (file) {
       const formData = new FormData();
-      formData.append("VoiceMessage", file);
+      formData.append('profile_picture', file);
       apiService
-        .httpPutRequest<{ image: string; message: string; status: string }>(
-          "api/v1/customer/profile/photo",
+        .httpPutRequest<{ profile_picture_url: string; message: string; status: string; }>(
+          "user/profile/image",
           formData,
           undefined,
           {
-            config: { requireAuth: true, signout: () => signout("/") },
+            config: { requireAuth: true, signout: () => signout("/login") },
           }
         )
         .subscribe({
           next: (res) => {
             if (res.status === "success") {
-              // toast.success(res.message);
-              setValue("image", res.image);
-              updateUser({ logo: res.image });
+              toast.success(res.message);
+              setValue("profile_picture_url", res.profile_picture_url);
+              updateUser({ profile_picture_url: res.profile_picture_url });
             }
           },
-          // error: (err) => toast.error(err.message),
+          error: (err: AxiosError<{ message: string }>) => {
+            setLoading(false);
+            toast.error(err.response?.data?.message || err.message);
+            setValue('profile_picture_url', user?.profile_picture_url || null);
+          }
         });
     }
   };
 
-  // const onSubmit = (data: FormValues) => {
-  //   setLoading(true);
-  //   const payload = {
-  //     address: data.address,
-  //     contact: `971${Number(data.phone)}`,
-  //     email: data.email,
-  //     name: `${data.firstName} ${data.lastName}`,
-  //     country: Number(data.country),
-  //     city: Number(data.city),
-  //   };
-  //   apiService
-  //     .httpPutRequest<{
-  //       message: string;
-  //       customer: IUserProfile;
-  //       status: string;
-  //     }>("api/v1/customer/profile", payload {
-  //       config: { requireAuth: true, signout: () => signout("/") },
-  //     })
-  //     .subscribe({
-  //       next: (res) => {
-  //         setLoading(false);
-  //         if (res.status === "success") {
-  //           // toast.success(res.message);
-  //           updateUser({ ...res.customer, logo: user?.logo || "" });
-  //         }
-  //       },
-  //       error: (err) => {
-  //         setLoading(false);
-  //         console.log(err.message)
-  //         // toast.error(err.message);
-  //       },
-  //     });
-  // };
+  const updateFormValues = useCallback(
+    (user: IUser | null) => {
+      if (user) {
+        reset({
+          profile_picture_url: user.profile_picture_url,
+          firstName: user.name.split(' ')[0] || '',
+          lastName: user.name.split(' ')[1] || '',
+          email: user.email || '',
+          phone_number: user.phone_number || '',
+          date_of_birth: new Date(user.date_of_birth).toLocaleDateString('sv-SE'),
+          gender: user.gender || '',
+          address: user.address || ''
+        });
+      }
+    },
+    [reset]
+  );
+
+  const onSubmit = (values: FormValues) => {
+    setIsSubmitting(true);
+    const payload = {
+      // profile_picture_url: values.profile_picture_url,
+      name: values.firstName + ' ' + values.lastName,
+      email: values.email,
+      address: values.address,
+      phone_number: values.phone_number,
+      gender: values.gender,
+      date_of_birth: format(parseISO(values.date_of_birth), 'yyyy-MM-dd'),
+      // Password: ''
+    };
+
+    apiService.httpPutRequest<{ message: string; data: IUser }>('user/profile', payload, '', { config: { requireAuth: true } }).subscribe({
+      next: (res) => {
+        setIsSubmitting(false);
+        toast.success(res.message);
+        if (res && res.data) {
+          updateUser({
+            ...res.data,
+            profile_picture_url: values.profile_picture_url!,
+            address: values.address!,
+            phone_number: values.phone_number,
+            date_of_birth: values.date_of_birth,
+            email: values.email
+          });
+          updateFormValues({
+            ...res.data,
+            profile_picture_url: values.profile_picture_url!,
+            address: values.address!,
+            phone_number: values.phone_number,
+            date_of_birth: values.date_of_birth,
+            email: values.email
+          });
+        }
+      },
+      error: (err) => {
+        setIsSubmitting(false);
+        updateFormValues(user);
+        toast.error(err.response?.data?.message || err.message);
+      }
+    });
+  };
 
   useEffect(() => {
-    if (user) {
-      reset({
-        firstName: user.name.split(" ")[0] || "",
-        lastName: user.name.split(" ")[1] || "",
-        email: user.email,
-        phone: user.contact ? user.contact.slice(3) : user.contact,
-        address: user.address || "",
-        country: user.country || "",
-        city: "",
-        image: user.logo || "",
-      });
-    }
-  }, [user, reset]);
-
-  useEffect(() => {
-    setLoadingCountries(true);
-    apiService
-      .httpGetRequest<{ countries: ICountry[] }>(`api/v1/countries`)
-      .subscribe({
-        next: (res) => {
-          setCountries(res.countries);
-          setLoadingCountries(false);
-        },
-        error: (err) => {
-          console.log("Error fetching countries:", err.message);
-          setLoadingCountries(false);
-        },
-      });
-  }, []);
+    updateFormValues(user);
+  }, [user, updateFormValues]);
 
   return (
     <form className="py-10">
       <div className="flex flex-col items-center justify-center">
         <Controller
-          name="image"
+          name="profile_picture_url"
           control={control}
           render={({ field }) => (
             <ProfilePictureUpload
-              currentImage={field.value}
+              // currentImage={field.value}
               onImageChange={uploadPhoto}
             />
           )}
@@ -194,7 +195,7 @@ export const ProfileMain = () => {
           disabled
           type="phone"
           placeholder="Phone Number"
-          {...register("phone")}
+          {...register("phone_number")}
         />
       </div>
 

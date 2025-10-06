@@ -33,7 +33,7 @@ export function AuthProvider({ token: defaultValue, children }: { token: string 
     token: string | null,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     user: any = null,
-    path: string = "/"
+    path: string = "/dashboard/profile"
   ) => {
     if (token) {
       setToken(token);

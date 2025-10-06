@@ -4,6 +4,8 @@ import "./globals.css";
 import { AuthProvider, UserProvider } from "@/providers";
 import { cookies } from "next/headers";
 import { Toaster } from "@/components/ui/sonner";
+import { Header } from "../../common/comonents/header";
+import { Footer } from "../../common/comonents/footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,7 +30,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <body suppressHydrationWarning className={`${inter.variable} ${inter.className} antialiased`}>
         <UserProvider>
           <AuthProvider token={token}>
+            <Header />
             {children}
+            <Footer />
             <Toaster richColors position="top-center" />
           </AuthProvider>
         </UserProvider>
