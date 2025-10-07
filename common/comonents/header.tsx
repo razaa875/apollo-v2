@@ -65,8 +65,6 @@ export const Header = () => {
                 <header>
                     {
                         isDesktop ?
-                            // <div className={`fixed z-20 inset-x-0 mx-auto top-8 transition-all duration-500 ease-in-out ${isShrunk ? "w-[50%] xl:w-[45%] 2xl:w-[35%]" : "w-[93%]"} bg-white/50 border-2 border-white shadow-xl backdrop-blur-md drop-shadow-2xl rounded-lg pl-[2%] pr-[1%] overflow-hidden`}
-                            // >
                             <motion.div
                                 layout
                                 animate={{
