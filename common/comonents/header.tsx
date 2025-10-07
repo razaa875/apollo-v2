@@ -62,7 +62,7 @@ export const Header = () => {
     return (
         <>
             {!Boolean(path && authRoutes.includes(path)) && (
-                <header>
+                <header className="pt-28 md:pt-32">
                     {
                         isDesktop ?
                             <motion.div
@@ -86,6 +86,7 @@ export const Header = () => {
                                             title="Apollo"
                                             width={115}
                                             height={50}
+                                            priority
                                             className="w-fit mx-auto h-4 object-contain"
                                         />
                                     </Link>
@@ -147,6 +148,7 @@ export const Header = () => {
                                             title="Apollo"
                                             width={115}
                                             height={50}
+                                            priority
                                             className="w-fit mx-auto h-4 object-contain"
                                         />
                                     </Link>

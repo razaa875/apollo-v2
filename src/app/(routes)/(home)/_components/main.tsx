@@ -2,7 +2,7 @@ import Image from "next/image";
 export default function HomeMain() {
   return (
     <>
-      <main className="h-screen flex justify-center items-center bg-[url(/images/dashboard/squareBackground.webp)] bg-center bg-cover">
+      <main className="flex justify-center items-center bg-[url(/images/dashboard/squareBackground.webp)] bg-bottom bg-cover">
         <div className="-translate-y-9">
           <Image
             src="/images/dashboard/spaceman.webp"
