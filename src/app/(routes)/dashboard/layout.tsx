@@ -7,7 +7,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <div className="flex lg:justify-between w-[93%] lg:w-[97%] mx-auto">
-      <div className="w-full h-screen lg:w-[25%] bg-white lg:rounded-xl hidden lg:block pt-8">
+      <div className="w-full lg:w-[25%] bg-white lg:rounded-xl hidden lg:block pt-8">
         <SideNav />
       </div>
       <div className="w-full bg-white lg:w-[73%] rounded-xl">{children}</div>
