@@ -146,6 +146,7 @@ export default function RecentTest() {
             width={250}
             height={250}
             alt="Picture of the author"
+            className="size-full object-contain"
           />
         </div>
       </div>
