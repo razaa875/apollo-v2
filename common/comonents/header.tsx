@@ -35,7 +35,7 @@ export const Header = () => {
 
     useEffect(() => {
         setOpen(false);
-        if (!isAuthenticated || isDesktop) {
+        if (!isAuthenticated || !isDesktop) {
             setLogoutDialog(false);
             setUserOpen(false);
         }
@@ -110,7 +110,7 @@ export const Header = () => {
                                             <UserMenu />
                                         ) : (
                                             <Link href="/login">
-                                                <Button variant="ghost" type="button" className="p-0 h-auto has-[>svg]:px-0">
+                                                <Button variant="ghost" type="button" className="p-0 h-auto has-[>svg]:px-0 hover:bg-transparent">
                                                     <LogIn className="size-5" />
                                                 </Button>
                                             </Link>
@@ -131,7 +131,7 @@ export const Header = () => {
                             </motion.div>
                             :
                             <div className="fixed z-20 inset-x-0 w-[93%] mx-auto top-4 bg-white/50 border-2 border-white shadow-xl backdrop-blur-md drop-shadow-2xl rounded-2xl px-[5%] overflow-hidden">
-                                <div className="flex items-center justify-between py-3">
+                                <div className="flex items-center justify-between py-6">
                                     <button
                                         onClick={() => {
                                             if (userOpen) setUserOpen(false);
@@ -141,7 +141,7 @@ export const Header = () => {
                                         <Menu className="size-5 md:size-6 cursor-pointer" />
                                     </button>
 
-                                    <Link href="/" title="Home" className="w-fit mx-auto">
+                                    <Link href="/" title="Home" className="w-fit mx-auto h-5">
                                         <Image
                                             src="/logo/logo.svg"
                                             alt="Apollo"
@@ -149,7 +149,7 @@ export const Header = () => {
                                             width={115}
                                             height={50}
                                             priority
-                                            className="w-fit mx-auto h-4 object-contain"
+                                            className="size-full object-contain"
                                         />
                                     </Link>
 
