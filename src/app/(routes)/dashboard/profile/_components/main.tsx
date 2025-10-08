@@ -1,20 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Controller, useForm } from "react-hook-form";
 import { parseISO, format } from 'date-fns';
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/src/components/ui/select";
 
 import { ProfilePictureUpload } from "./profile-picture-upload";
 
@@ -24,12 +16,12 @@ import { apiService } from "@/common/services";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { IUser } from "@/common/models/interface";
-
-// import { Loader2 } from "lucide-react";
-// import { IUserProfile } from "@/common/models/interface";
-
-type ICountry = { id: number; name: string };
-type ICity = { id: number; name: string };
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
 type FormValues = {
   id: number;
@@ -55,20 +47,23 @@ export const ProfileMain = () => {
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const initials = useMemo(() => {
-    if (!user) return '';
-    if (!user.profile_picture_url) {
-      const parts = user.name.trim().split(' ');
-      return parts && parts.length > 1 ? parts[0][0].toUpperCase() + parts[1][0].toUpperCase() : parts[0][0].toUpperCase();
-    }
-    return '';
-  }, [user]);
-
-  const { control, register, setValue, reset } =
-    useForm<FormValues>();
+  const { control, formState, register, setValue, reset, handleSubmit } =
+    useForm<FormValues>({
+      defaultValues: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone_number: '',
+        date_of_birth: '',
+        gender: '',
+        address: '',
+        profile_picture_url: '',
+      },
+    });
 
   const uploadPhoto = (file: File | null) => {
     if (file) {
+      setLoading(true);
       const formData = new FormData();
       formData.append('profile_picture', file);
       apiService
@@ -86,12 +81,13 @@ export const ProfileMain = () => {
               toast.success(res.message);
               setValue("profile_picture_url", res.profile_picture_url);
               updateUser({ profile_picture_url: res.profile_picture_url });
+              setLoading(false);
             }
           },
           error: (err: AxiosError<{ message: string }>) => {
-            setLoading(false);
             toast.error(err.response?.data?.message || err.message);
             setValue('profile_picture_url', user?.profile_picture_url || null);
+            setLoading(false);
           }
         });
     }
@@ -106,7 +102,7 @@ export const ProfileMain = () => {
           lastName: user.name.split(' ')[1] || '',
           email: user.email || '',
           phone_number: user.phone_number || '',
-          date_of_birth: new Date(user.date_of_birth).toLocaleDateString('sv-SE'),
+          date_of_birth: new Date(user.date_of_birth).toLocaleDateString('sv-SE') || '',
           gender: user.gender || '',
           address: user.address || ''
         });
@@ -164,15 +160,16 @@ export const ProfileMain = () => {
   }, [user, updateFormValues]);
 
   return (
-    <form className="py-10">
+    <form onSubmit={handleSubmit(onSubmit)} className="py-10">
       <div className="flex flex-col items-center justify-center">
         <Controller
           name="profile_picture_url"
           control={control}
           render={({ field }) => (
             <ProfilePictureUpload
-              // currentImage={field.value}
+              currentImage={field.value}
               onImageChange={uploadPhoto}
+              loading={loading}
             />
           )}
         />
@@ -183,24 +180,64 @@ export const ProfileMain = () => {
           Upload a new profile picture
         </p>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-y-4 xl:gap-x-6 my-4 md:my-8 px-4 xl:px-32">
-        <Input
-          type="text"
-          placeholder="First Name"
-          {...register("firstName")}
-        />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-y-4 xl:gap-x-6 my-4 md:my-8 px-4 xl:px-32 text-base font-light md:text-sm">
+        <Input type="text" placeholder="First Name" {...register("firstName")} />
         <Input type="text" placeholder="Last Name" {...register("lastName")} />
-        <Input type="email" placeholder="Email" {...register("email")} />
-        <Input
-          disabled
-          type="phone"
-          placeholder="Phone Number"
-          {...register("phone_number")}
+        <Input disabled type="email" placeholder="Email" {...register("email")} />
+        <Input type="phone" placeholder="Phone Number" {...register("phone_number")} />
+        <Controller
+          name="date_of_birth"
+          control={control}
+          render={({ field }) => (
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn("rounded-[20px] h-9 md:h-12 justify-start text-left ", !field.value && "text-muted-foreground")}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {field.value ? field.value : "Select Date of Birth"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  captionLayout="dropdown"
+                  selected={field.value ? new Date(field.value) : undefined}
+                  onSelect={(date) => {
+                    if (!date) return;
+                    const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+                      .toISOString()
+                      .split("T")[0];
+                    field.onChange(localDate);
+                  }}
+                />
+              </PopoverContent>
+            </Popover>
+          )}
         />
-      </div>
 
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field }) => (
+            <Select onValueChange={field.onChange} value={field.value || ''}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Gender" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Male">Male</SelectItem>
+                <SelectItem value="Female">Female</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          )}
+        />
+        <Textarea placeholder="Enter your address..." className="col-span-1 lg:col-span-2" {...register("address")} />
+      </div>
       <Button
-        loading={loading}
+        loading={isSubmitting}
+        disabled={!formState.isDirty || isSubmitting}
         type="submit"
         className="flex justify-center w-fit mx-auto px-6"
       >

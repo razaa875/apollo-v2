@@ -2,20 +2,21 @@
 
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
-import { Camera, User, Loader2 } from "lucide-react";
+import { Camera, User, Loader } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface ProfilePictureUploadProps {
-  currentImage?: string;
+  currentImage?: string | null;
   onImageChange?: (file: File | null) => Promise<void> | void; // allow async
+  loading?: boolean;
 }
 
 export function ProfilePictureUpload({
   currentImage,
   onImageChange,
+  loading = false,
 }: ProfilePictureUploadProps) {
   const [preview, setPreview] = useState("");
-  const [loading, setLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = async (
@@ -36,8 +37,6 @@ export function ProfilePictureUpload({
       return;
     }
 
-    setLoading(true);
-
     try {
       // Create preview
       const reader = new FileReader();
@@ -49,7 +48,6 @@ export function ProfilePictureUpload({
       // Call callback (maybe uploading to server)
       await onImageChange?.(file);
     } finally {
-      setLoading(false);
     }
   };
 
@@ -74,7 +72,7 @@ export function ProfilePictureUpload({
         {/* Loader overlay */}
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
-            <Loader2 className="size-8 animate-spin text-white" />
+            <Loader className="size-6 animate-spin text-white" />
           </div>
         )}
 
@@ -94,7 +92,7 @@ export function ProfilePictureUpload({
             onClick={handleClick}
             className="absolute -top-1 -right-1 size-10 bg-secondary rounded-full flex items-center justify-center cursor-pointer hover:bg-secondary/90 transition-colors"
           >
-            <Camera className="size-6 text-primary-foreground" />
+            <Camera className="size-6 text-primary" />
           </div>
         )}
       </div>

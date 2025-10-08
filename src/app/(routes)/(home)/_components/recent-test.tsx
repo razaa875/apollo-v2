@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import VideoCard from "./VideoCard";
+import VideoCard from "./video-card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Carousel,
@@ -146,6 +146,7 @@ export default function RecentTest() {
             width={250}
             height={250}
             alt="Picture of the author"
+            className="size-full object-contain"
           />
         </div>
       </div>
@@ -158,7 +159,7 @@ export default function RecentTest() {
                 {videoUrl.map((item) => (
                   <CarouselItem
                     key={item.id}
-                    className="pl-1 ml-3 md:basis-1/2 lg:basis-1/6"
+                    className="pl-1 ml-3 md:basis-1/2 lg:basis-1/4"
                   >
                     <div className="">
                       <Card className="w-full border-none shadow-none bg-transparent pt-0">
