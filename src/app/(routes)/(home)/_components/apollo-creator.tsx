@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-export default function BrandProduct() {
+export default function ApolloCreators() {
   const brandData = [
     {
       id: "1",
@@ -64,9 +64,7 @@ export default function BrandProduct() {
   return (
     <>
       <div className="my-5 py-16 border-t border-[#2C2C2C26]">
-        <h1 className="text-center text-6xl font-medium">
-          Brands And Products
-        </h1>
+        <h1 className="text-center text-6xl font-medium">Apollo Creators</h1>
       </div>
 
       <div className="flex w-[90%] mx-auto  gap-6">
@@ -75,27 +73,27 @@ export default function BrandProduct() {
           className="grid grid-cols-[30%_60%] items-center w-full bg-transparent border-none"
         >
           <div className="w-full">
-            <ScrollArea className="h-[1000px] w-[full] rounded-md  p-4 bg-red">
-              <p className="text-4xl font-medium">Shop By Activity</p>
+            <ScrollArea className="h-[600px] w-[full] rounded-md  p-4 bg-red">
+              <p className="text-4xl font-medium">Filter By Activity</p>
 
               <TabsList className="flex flex-col gap-3 w-full p-3 h-auto bg-transparent">
                 <TabsTrigger
-                  value="watches"
+                  value="hikers"
                   className="w-[380px] h-[191px] cursor-pointer rounded-2xl text-white font-medium text-[20px]  flex-none flex justify-start items-end bg-[linear-gradient(180deg,rgba(36,33,33,0)_0%,#242121_100%)], bg-[url('/images/dashboard/watch.jpg')] bg-cover bg-center bg-no-repeat"
                 >
-                  Watches
+                  Hikers
                 </TabsTrigger>
                 <TabsTrigger
-                  value="Cloths"
+                  value="climbers"
                   className="w-[380px] h-[191px] cursor-pointer rounded-2xl text-white font-medium text-[20px]  flex-none flex justify-start items-end bg-[linear-gradient(180deg,rgba(36,33,33,0)_0%,#242121_100%)], bg-[url('/images/dashboard/clothing.jpg')] bg-cover bg-center bg-no-repeat"
                 >
-                  Cloths
+                  Climbers
                 </TabsTrigger>
                 <TabsTrigger
                   value="perfumes"
                   className="w-[380px] h-[191px] cursor-pointer rounded-2xl text-white font-medium text-[20px]  flex-none flex justify-start items-end bg-[linear-gradient(180deg,rgba(36,33,33,0)_0%,#242121_100%)], bg-[url('/images/dashboard/perfumes.webp')] bg-cover bg-center bg-no-repeat"
                 >
-                  Perfumes
+                  Ski
                 </TabsTrigger>
                 <TabsTrigger
                   value="jewelry"
@@ -107,8 +105,8 @@ export default function BrandProduct() {
             </ScrollArea>
           </div>
           <div>
-            <TabsContent value="watches">
-              <p className="text-4xl font-medium">Watches</p>
+            <TabsContent value="hikers">
+              <p className="text-4xl font-medium">Hikers</p>
               <div className="grid grid-cols-3">
                 {brandData.map((item) => (
                   <Card
@@ -124,22 +122,13 @@ export default function BrandProduct() {
                         className="w-60 h-full object-cover rounded-2xl"
                       />
                     </CardContent>
-                    <CardFooter className="flex-col items-start pl-0">
-                      <p className="text-[14px] font-normal text-[#2C2C2C80]">
-                        {item.company}
-                      </p>
-                      <h1 className="text-2xl font-medium">
-                        {item.productName}
-                      </h1>
-                      <p className="text-2xl font-medium">{item.price}</p>
-                    </CardFooter>
                   </Card>
                 ))}
               </div>
             </TabsContent>
-            <TabsContent value="Cloths">Clothing</TabsContent>
+            <TabsContent value="climbers">climbers</TabsContent>
             <TabsContent value="perfumes">
-              <p>Pefumes</p>
+              <p>Ski</p>
             </TabsContent>
             <TabsContent value="jewelry">
               <p>jewelry</p>
