@@ -1,4 +1,7 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+"use client";
+import { useEffect, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
+
 import {
   Carousel,
   CarouselContent,
@@ -6,7 +9,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -15,7 +17,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -23,145 +24,141 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import PollCard from "@/src/app/(routes)/(home)/_components/pollcard";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+const tableData = [
+  { id: "1", name: "John Doe", imageUrl: "/images/home/1.jpg" },
+  { id: "2", name: "Olivia Martin", imageUrl: "/images/home/2.jpg" },
+  { id: "3", name: "Emily Brown", imageUrl: "/images/home/3.jpg" },
+  { id: "4", name: "Sarah Williams", imageUrl: "/images/home/4.jpg" },
+  { id: "5", name: "Joseph Martinez", imageUrl: "/images/home/5.jpg" },
+];
 
 export default function Community() {
-  const tableData = [
-    {
-      id: "1",
-      name: "John Doe",
-      img: "url",
-    },
-    {
-      id: "2",
-      name: "Olivia Martin",
-      img: "url",
-    },
-    {
-      id: "3",
-      name: "Emily Brown",
-      img: "url",
-    },
-    {
-      id: "4",
-      name: "Sarah Williams",
-      img: "url",
-    },
-    {
-      id: "5",
-      name: "Joseph Martinez",
-      img: "url",
-    },
-    {
-      id: "6",
-      name: "Joseph Martinez",
-      img: "url",
-    },
-    {
-      id: "7",
-      name: "Joseph Martinez",
-      img: "url",
-    },
-  ];
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  if (!mounted) return null;
 
   return (
-    <>
-      <div className="my-5 py-16">
-        <h1 className="text-center text-6xl font-medium">Community Voting</h1>
-        <p className="text-center text-2xl font-normal mt-3">
-          Explore reviews, demos, and live action.
-        </p>
-      </div>
+    <section className="pt-8 lg:pt-12 xl:pt-20">
+      <h2 className="w-[90%] mx-auto text-center text-4xl lg:text-6xl font-medium">
+        Community Voting
+      </h2>
+      <p className="w-[90%] mx-auto text-center text-base lg:text-xl text-black/50 font-normal mt-3 mb-20">
+        Explore reviews, demos, and live action.
+      </p>
 
-      <div className="flex justify-end overflow-x-hidden">
-        <div className="w-[90%] pt-5 mb-5">
-          <Carousel orientation="horizontal">
-            <div className="pt-10 ">
-              <CarouselContent className="pl-10 pb-10 bg-transparent">
-                <CarouselItem className="pl-1 ml-3 md:basis-1/2 lg:basis-1/2">
-                  <div className="bg-white rounded-2xl h-[516px] shadow-[0px_12px_32px_0px_#0000001A]">
-                    <Card className="w-full border-none shadow-none h-28">
-                      <CardHeader>
-                        <CardTitle className="text-3xl font-medium text-center">
-                          Which Category Should We Test Next?
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ScrollArea className="h-[300px]">
-                          <form>
-                            <Table>
-                              <TableHeader>
-                                <TableRow>
-                                  <TableHead className="w-80">
-                                    Lorem Ipsum Dio Dollar
-                                  </TableHead>
-                                  <TableHead>1st</TableHead>
-                                  <TableHead>2nd</TableHead>
-                                  <TableHead>3rd</TableHead>
-                                  <TableHead>4rd</TableHead>
-                                  <TableHead>5rd</TableHead>
-                                </TableRow>
-                              </TableHeader>
-                              <TableBody>
-                                {tableData.map((ele, index) => (
-                                  <TableRow key={index}>
-                                    <TableCell className="font-medium">
-                                      <div className="flex items-center gap-3">
-                                        <Avatar>
-                                          <AvatarImage src="https://github.com/shadcn.png" />
-                                          <AvatarFallback>CN</AvatarFallback>
-                                        </Avatar>
-                                        <p className="p-0 m-0">{ele.name}</p>
-                                      </div>
-                                    </TableCell>
+      <Carousel className="w-[90%] mx-auto lg:mr-0 lg:ml-auto">
+        <CarouselContent>
+          {/* === 5 CARDS LOOP === */}
+          {[...Array(5)].map((_, idx) => (
+            <CarouselItem key={idx} className="basis-full lg:basis-[60%] mb-8">
+              <Card className="w-full bg-white/50 cursor-pointer">
+                <CardHeader>
+                  <CardTitle className="text-2xl xl:text-3xl font-medium text-center">
+                    Which Category Should We Test Next? #{idx + 1}
+                  </CardTitle>
+                </CardHeader>
 
-                                    {[...Array(5)].map((_, i) => (
-                                      <TableCell key={i}>
-                                        <input
-                                          type="radio"
-                                          name={`same-${index}`} // unique per row if you want per-row selection
-                                          value={`option-${i + 1}`}
-                                          className="appearance-none w-5 h-5 border-2 border-gray-500 rounded-full checked:bg-gray-700 checked:border-gray-700 transition-all cursor-pointer"
-                                        />
-                                      </TableCell>
-                                    ))}
-                                  </TableRow>
-                                ))}
-                              </TableBody>
-                            </Table>
-                          </form>
-                        </ScrollArea>
-                      </CardContent>
-                      <CardFooter className="flex-col gap-2">
-                        <Button
-                          variant="outline"
-                          type="submit"
-                          fullWidth
-                          className="mt-4"
-                        >
-                          SUBMIT
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="pl-1 ml-3 md:basis-1/2 lg:basis-1/2">
-                  <div className="bg-white rounded-2xl h-[516px] shadow-[0px_12px_32px_0px_#0000001A]">
-                    <PollCard />
-                  </div>
-                </CarouselItem>
-                <CarouselItem className="pl-1 ml-3 md:basis-1/2 lg:basis-1/2">
-                  <div className="bg-white rounded-2xl h-[516px] shadow-[0px_12px_32px_0px_#0000001A]"></div>
-                </CarouselItem>
-              </CarouselContent>
-            </div>
-            <div className="absolute right-28 top-0">
-              <CarouselPrevious className="rounded-sm border-none bg-white ml-5 hover:bg-amber-50" />
-              <CarouselNext className="rounded-sm border-none bg-white hover:bg-amber-50" />
-            </div>
-          </Carousel>
+                <CardContent className="shadow-none">
+                  <form>
+                    {isDesktop ? (
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Category</TableHead>
+                            <TableHead className="text-center">1st</TableHead>
+                            <TableHead className="text-center">2nd</TableHead>
+                            <TableHead className="text-center">3rd</TableHead>
+                            <TableHead className="text-center">4th</TableHead>
+                            <TableHead className="text-center">5th</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {tableData.map((item, i) => (
+                            <TableRow key={i}>
+                              <TableCell className="font-medium">
+                                <div className="flex items-center gap-3">
+                                  <Avatar>
+                                    <AvatarImage src={item.imageUrl} />
+                                    <AvatarFallback>{item.name[0]}</AvatarFallback>
+                                  </Avatar>
+                                  <p>{item.name}</p>
+                                </div>
+                              </TableCell>
+                              {[...Array(5)].map((_, j) => (
+                                <TableCell key={j} className="text-center">
+                                  <input
+                                    type="radio"
+                                    name={`vote-${item.id}-${idx}`}
+                                    value={`option-${j + 1}`}
+                                    className="appearance-none w-5 h-5 border-2 border-gray-400 rounded-full checked:bg-gray-700 checked:border-gray-700 transition-all cursor-pointer"
+                                  />
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    ) : (
+                      <ScrollArea className="h-70">
+                        {tableData.map((item, i) => (
+                          <Card key={i} className="p-4 mb-4">
+                            <div className="flex items-center gap-3">
+                              <Avatar>
+                                <AvatarImage src={item.imageUrl} />
+                                <AvatarFallback>{item.name}</AvatarFallback>
+                              </Avatar>
+                              <p className="font-medium text-lg">{item.name}</p>
+                            </div>
+
+                            <div className="flex justify-between mt-2">
+                              {[...Array(5)].map((_, j) => (
+                                <label
+                                  key={j}
+                                  className="flex flex-col items-center text-xs text-gray-500"
+                                >
+                                  <input
+                                    type="radio"
+                                    name={`vote-mobile-${item.id}-${idx}`}
+                                    value={`option-${j + 1}`}
+                                    className="appearance-none size-5 border-2 border-gray-400 rounded-full checked:bg-gray-700 checked:border-gray-700 transition-all cursor-pointer"
+                                  />
+                                  <span className="mt-1">{j + 1}</span>
+                                </label>
+                              ))}
+                            </div>
+                          </Card>
+                        ))}
+                      </ScrollArea>
+                    )}
+                  </form>
+                </CardContent>
+
+                <CardFooter className="flex-col gap-2">
+                  <Button
+                    variant="outline"
+                    type="submit"
+                    className="w-full mt-4 border-white border-2 bg-white/50 hover:bg-transparent drop-shadow-2xl"
+                  >
+                    SUBMIT
+                  </Button>
+                </CardFooter>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+
+        {/* === CONTROLS === */}
+        <div className="absolute right-12 md:right-14 lg:right-28 -top-8 md:-top-10">
+          <CarouselPrevious className="rounded-sm border-none bg-white ml-3 hover:bg-amber-50" />
+          <CarouselNext className="rounded-sm border-none bg-white hover:bg-amber-50" />
         </div>
-      </div>
-    </>
+      </Carousel>
+    </section>
   );
 }

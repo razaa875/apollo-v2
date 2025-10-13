@@ -1,88 +1,98 @@
 "use client";
+import { useEffect, useState } from "react";
+
 import Image from "next/image";
-import VideoCard from "./video-card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import PollCard from "@/src/app/(routes)/(home)/_components/pollcard";
+
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+
+const cards = [
+  {
+    img: "/images/home/journal-1.webp", // replace with your image path
+    author: "Saghun Martinez",
+    title: "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
+  },
+  {
+    img: "/images/home/journal-2.webp",
+    author: "Saghun Martinez",
+    title: "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
+  },
+  {
+    img: "/images/home/journal-3.webp",
+    author: "Saghun Martinez",
+    title: "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
+  },
+  {
+    img: "/images/home/journal-1.webp", // replace with your image path
+    author: "Saghun Martinez",
+    title: "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
+  },
+  {
+    img: "/images/home/journal-2.webp",
+    author: "Saghun Martinez",
+    title: "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
+  },
+  {
+    img: "/images/home/journal-3.webp",
+    author: "Saghun Martinez",
+    title: "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
+  },
+];
+
 export default function Journals() {
-  const cards = [
-    {
-      img: "/images/dashboard/journals.png", // replace with your image path
-      author: "Saghun Martinez",
-      title:
-        "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
-    },
-    {
-      img: "/images/dashboard/journals1.png",
-      author: "Saghun Martinez",
-      title:
-        "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
-    },
-    {
-      img: "/images/dashboard/journals2.png",
-      author: "Saghun Martinez",
-      title:
-        "Our Wide All Mountain Ski, Designed For A Wide Range Of Adventures.",
-    },
-  ];
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // 🩵 Prevents hydration mismatch
+
   return (
     <>
-      <div className="my-5 py-16 ">
-        <h1 className="text-center text-6xl font-medium">Journals/Guides</h1>
-      </div>
+      <h2 className="w-[90%] mx-auto text-center text-4xl lg:text-6xl font-medium">
+        Journals/Guides
+      </h2>
 
-      <div className="py-12">
-        <div className="max-w-7xl mx-auto px-4 grid gap-8 md:grid-cols-3">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              className="rounded-2xl  overflow-hidden transition-transform hover:scale-[1.02]"
+      <Carousel className="w-[90%] mx-auto md:mr-0 md:ml-auto xl:mx-auto mt-20">
+        <CarouselContent>
+          {cards.map((item, i) => (
+            <CarouselItem
+              key={i}
+              className="basis-full md:basis-[40%] xl:basis-1/3"
             >
-              <div className="relative w-full h-56">
-                <Image
-                  src={card.img}
-                  alt={card.title}
-                  fill
-                  className="object-cover rounded-t-2xl"
-                />
-              </div>
-              <div className="p-4">
-                <p className="text-sm text-gray-500 mb-1">{card.author}</p>
-                <h3 className="text-gray-800 font-medium leading-snug">
-                  {card.title}
-                </h3>
-              </div>
-            </div>
+              <Card className="w-full border-none shadow-none bg-transparent pt-0 gap-5 cursor-pointer">
+                <CardContent className="p-0 relative group overflow-hidden rounded-2xl shadow-lg">
+                  {/* Cover */}
+                  <Image
+                    src={item.img}
+                    width={1200}
+                    height={800}
+                    alt={item.title}
+                    className={`w-full h-75 object-cover`}
+                  />
+                </CardContent>
+
+                <CardFooter className="flex-col gap-2 items-start px-0">
+                  <p className="text-start text-sm font-normal text-black/50">
+                    {item.author}
+                  </p>
+                  <p className="text-start text-xl font-medium">
+                    {item.title}
+                  </p>
+                </CardFooter>
+              </Card>
+            </CarouselItem>
           ))}
+        </CarouselContent>
+        <div className="absolute right-12 md:right-24 -top-8 md:-top-10">
+          <CarouselPrevious className="rounded-sm border-none bg-white ml-3 hover:bg-amber-50" />
+          <CarouselNext className="rounded-sm border-none bg-white hover:bg-amber-50" />
         </div>
-      </div>
+      </Carousel>
+
+      <Separator className="my-8 md:mb-12 lg:mb-20 lg:mt-16" />
     </>
   );
 }

@@ -1,9 +1,12 @@
-// PollCard.js
+'use client';
 
 import React from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
-// Data structure for the poll options
+import Image from "next/image";
+
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 const pollOptions = [
   {
     id: 1,
@@ -20,15 +23,17 @@ const pollOptions = [
   { id: 4, text: "Lorem ipsum dolor sit amet consectetur." },
 ];
 
-const avatars = [
-  "https://github.com/shadcn.png", // Replace with actual paths to your avatar images
-  "https://github.com/shadcn.png",
-  "https://github.com/shadcn.png",
+const tableData = [
+  { id: "1", name: "John Doe", imageUrl: "/images/home/1.jpg" },
+  { id: "2", name: "Olivia Martin", imageUrl: "/images/home/2.jpg" },
+  { id: "3", name: "Emily Brown", imageUrl: "/images/home/3.jpg" },
+  { id: "4", name: "Sarah Williams", imageUrl: "/images/home/4.jpg" },
+  { id: "5", name: "Joseph Martinez", imageUrl: "/images/home/5.jpg" },
 ];
 
-const PollCard = () => {
+export default function PollCard() {
   return (
-    <div className="p-5 ">
+    <div className="p-5 bg-background">
       {/* Poll Header */}
       <h1 className="text-2xl font-semibold mb-6 pr-10 text-gray-800 capitalize text-center">
         what makes it hard for you to quit fast fashion?
@@ -37,13 +42,13 @@ const PollCard = () => {
       {/* Avatars and Vote Count */}
       <div className="flex items-center mb-6">
         <div className="flex -space-x-2">
-          {avatars.map((src, index) => (
-            <img
-              key={index}
-              className="w-8 h-8 rounded-full border-2 border-white"
-              src={src}
-              alt={`Avatar ${index + 1}`}
-            />
+          {tableData.map((item, index) => (
+            <div key={index} className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 ">
+              <Avatar>
+                <AvatarImage src={item.imageUrl} alt={item.name} />
+                <AvatarFallback>{item.name}</AvatarFallback>
+              </Avatar>
+            </div>
           ))}
         </div>
         <span className="ml-3 text-lg font-medium text-gray-700">
@@ -52,7 +57,7 @@ const PollCard = () => {
       </div>
 
       {/* Poll Options List */}
-      <ScrollArea className="h-[400px]">
+      <ScrollArea className="">
         <div className="space-y-4">
           {pollOptions.map((option, index) => (
             <div
@@ -61,9 +66,8 @@ const PollCard = () => {
             >
               {/* Option Text Box (The main content box) */}
               <div
-                className={`p-4 rounded-xl ${
-                  index === 2 ? "w-4/5" : "w-full"
-                } bg-gray-50 border border-gray-200 shadow-sm`}
+                className={`p-4 rounded-xl ${index === 2 ? "w-4/5" : "w-full"
+                  } bg-gray-50 border border-gray-200 shadow-sm`}
               >
                 <p className="text-base text-gray-800">{option.text}</p>
               </div>
@@ -79,5 +83,3 @@ const PollCard = () => {
     </div>
   );
 };
-
-export default PollCard;

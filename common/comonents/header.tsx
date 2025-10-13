@@ -10,12 +10,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useMediaQuery } from "usehooks-ts";
 
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarTrigger } from "@/components/ui/menubar";
 
 import { useAuth, useProfile } from "@/providers";
 
 import LogoutModal from "./logout-modal";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarTrigger } from "@/components/ui/menubar";
 
 const authRoutes = ["/login", "/sign-up", "/forgot-password", "/reset-password"];
 
@@ -25,13 +25,19 @@ export const Header = () => {
     const { user } = useProfile();
 
     const isDesktop = useMediaQuery("(min-width: 1024px)", {
-        initializeWithValue: false,
+        initializeWithValue: true,
     });
 
+    const [hydrated, setHydrated] = useState(false);
     const [open, setOpen] = useState(false);
     const [userOpen, setUserOpen] = useState(false);
     const [logoutDialog, setLogoutDialog] = useState(false);
     const [isShrunk, setIsShrunk] = useState(false);
+
+    useEffect(() => {
+        setHydrated(true);
+    }, []);
+
 
     useEffect(() => {
         setOpen(false);
@@ -58,6 +64,7 @@ export const Header = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [isShrunk]);
 
+    if (!hydrated) return null;
 
     return (
         <>
