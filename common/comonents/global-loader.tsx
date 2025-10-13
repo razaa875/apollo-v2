@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Spinner } from "@/components/ui/spinner"; // ✅ Shadcn Spinner
 
 export default function GlobalLoader({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -10,11 +11,7 @@ export default function GlobalLoader({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     setLoading(true);
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 800); // loader duration
-
+    const timer = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(timer);
   }, [pathname]);
 
@@ -28,15 +25,15 @@ export default function GlobalLoader({ children }: { children: React.ReactNode }
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center bg-white"
+            className="fixed inset-0 z-[9999] flex items-center justify-center bg-background"
           >
-            {/* Simple spinner */}
-            <div className="w-12 h-12 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
+            {/* ✅ Shadcn Spinner */}
+            <Spinner className="size-12 text-primary" />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Hide children until loader finishes */}
+      {/* Page content fades in after loader */}
       <div className={`${loading ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}>
         {children}
       </div>
