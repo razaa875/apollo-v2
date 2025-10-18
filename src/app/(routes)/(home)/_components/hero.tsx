@@ -1,20 +1,29 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
-
 import { useMediaQuery } from "usehooks-ts";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
   const isDesktop = useMediaQuery("(min-width: 768px)", {
     initializeWithValue: false,
   });
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    // Simulate loading time (e.g. fetching images or data)
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
-  if (!mounted) return null;
+  if (isLoading) {
+    return (
+      <section className="relative w-[90%] mx-auto h-90 lg:h-110 2xl:h-130 flex justify-center items-center">
+        <Skeleton className="w-[90%] h-[80%] rounded-2xl" />
+      </section>
+    );
+  }
 
   return (
     <section className="relative h-90 lg:h-110 2xl:h-130 px-[5%] flex flex-col justify-center items-center bg-[url(/images/dashboard/squareBackground.webp)] bg-bottom bg-cover">

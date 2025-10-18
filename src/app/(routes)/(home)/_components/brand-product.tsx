@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
-import { Loader2, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { apiService } from "@/common/services";
 
@@ -20,7 +21,8 @@ export default function BrandProduct() {
   const [products, setProducts] = useState<IProductByCategory[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [mounted, setMounted] = useState(false);
+  const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
+  const [hydrated, setHydrated] = useState<boolean>(false);
 
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -42,7 +44,8 @@ export default function BrandProduct() {
   }
 
   useEffect(() => {
-    setMounted(true);
+    setHydrated(true);
+    setLoadingCategories(true);
 
     apiService.httpGetRequest<{ status: string; data: ICategories[] }>('categories').subscribe({
       next: (res) => {
@@ -54,16 +57,30 @@ export default function BrandProduct() {
             fetchProductByCategory(firstCategory.id);
           }
         }
+        setLoadingCategories(false);
       },
       error: (err) => {
         console.log(err.message);
+        setLoadingCategories(false);
       },
     });
   }, []);
 
-  if (!mounted) {
-    // Render nothing on the server — avoids mismatch
-    return null;
+  if (!hydrated) {
+    return (
+      <div className="w-[90%] mx-auto mt-8">
+        <Skeleton className="h-10 w-2/3 mx-auto mb-8" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex flex-col gap-3">
+              <Skeleton className="h-48 w-full rounded-xl" />
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -77,40 +94,50 @@ export default function BrandProduct() {
             <div className="flex justify-between">
               <div className="w-[26%]">
                 <h3 className="text-xl xl:text-2xl font-medium mb-4">Shop By Activity</h3>
-                <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4">
-                  <Tabs
-                    orientation="vertical"
-                    value={activeCategory}
-                    onValueChange={(val) => {
-                      setActiveCategory(val);
-                      fetchProductByCategory(Number(val));
-                    }}
-                  >
-                    <TabsList className="flex flex-col gap-3 size-full bg-transparent p-0">
-                      {categories.map((cat) => (
-                        <TabsTrigger
-                          key={cat.id}
-                          value={String(cat.id)}
-                          className="relative group overflow-hidden rounded-xl p-0 w-full"
-                        >
-                          <div className="w-full h-32 xl:h-40">
-                            <Image
-                              src={"/images/home/product.webp"}
-                              alt={cat.title}
-                              width={300}
-                              height={120}
-                              className="size-full object-cover rounded-xl"
-                            />
-                          </div>
-                          <span className="absolute bottom-4 left-4 font-medium text-white text-base z-10">
-                            {cat.title}
-                          </span>
-                          <div className="absolute inset-0 size-full bg-gradient-to-b to-primary from-primary/10"></div>
-                        </TabsTrigger>
-                      ))}
-                    </TabsList>
-                  </Tabs>
-                </ScrollArea>
+                {loadingCategories ? (
+                  <div className="flex flex-col gap-3">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Skeleton key={i} className="h-32 xl:h-40 w-full rounded-xl" />
+                    ))}
+                  </div>
+                ) : (
+                  <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4">
+                    <Tabs
+                      orientation="vertical"
+                      value={activeCategory}
+                      onValueChange={(val) => {
+                        setActiveCategory(val);
+                        fetchProductByCategory(Number(val));
+                      }}
+                    >
+                      <TabsList className="flex flex-col gap-3 size-full bg-transparent p-0">
+                        {categories.map((cat) => (
+                          <TabsTrigger
+                            key={cat.id}
+                            value={String(cat.id)}
+                            className="relative group overflow-hidden rounded-xl p-0 w-full"
+                          >
+                            <div className="w-full h-32 xl:h-40">
+                              <Image
+                                src={"/images/home/product.webp"}
+                                alt={cat.title}
+                                width={300}
+                                height={120}
+                                priority
+                                className="size-full object-cover rounded-xl"
+                              />
+                            </div>
+                            <span className="absolute bottom-4 left-4 font-medium text-white text-base z-10">
+                              {cat.title}
+                            </span>
+                            <div className="absolute inset-0 size-full bg-gradient-to-b to-primary from-primary/10"></div>
+                          </TabsTrigger>
+                        ))}
+                      </TabsList>
+                    </Tabs>
+                  </ScrollArea>
+                )}
+
               </div>
 
               <div className="w-[70%]">
@@ -122,8 +149,14 @@ export default function BrandProduct() {
                 </h3>
 
                 {loading ? (
-                  <div className="flex justify-center items-center h-120">
-                    <Loader2 className="size-12 animate-spin text-primary" />
+                  <div className="grid grid-cols-2 xl:grid-cols-3 gap-8">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={i} className="flex flex-col gap-3">
+                        <Skeleton className="h-48 w-full rounded-xl" />
+                        <Skeleton className="h-4 w-3/4" />
+                        <Skeleton className="h-4 w-1/2" />
+                      </div>
+                    ))}
                   </div>
                 ) : products.length > 0 ? (
                   <ScrollArea className="h-120 pr-4">
@@ -135,10 +168,11 @@ export default function BrandProduct() {
                         >
                           <div className="w-full h-50">
                             <Image
-                              src={product.image}
+                              src={product.image || '/images/no-data/no-data.svg'}
                               alt={product.title}
                               height={200}
                               width={400}
+                              loading="lazy"
                               className="size-full object-cover rounded-[20px] drop-shadow-xl mb-4"
                             />
                           </div>
@@ -182,21 +216,34 @@ export default function BrandProduct() {
                 fetchProductByCategory(Number(val));
               }}
             >
-              <TabsList className="h-10 md:h-13 flex gap-x-2 overflow-x-auto justify-start w-full my-4">
-                {categories.map((cat) => (
-                  <TabsTrigger
-                    key={cat.id}
-                    value={String(cat.id)}
-                    className="whitespace-nowrap text-sm py-4 md:px-8 font-medium data-[state=active]:bg-primary data-[state=active]:text-white"
-                  >
-                    {cat.title}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+              {loadingCategories ? (
+                <div className="flex gap-3 my-4 overflow-x-auto">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <Skeleton key={i} className="h-10 w-24 rounded-xl" />
+                  ))}
+                </div>
+              ) : (
+                <TabsList className="h-10 md:h-13 flex gap-x-2 overflow-x-auto justify-start w-full my-4">
+                  {categories.map((cat) => (
+                    <TabsTrigger
+                      key={cat.id}
+                      value={String(cat.id)}
+                      className="whitespace-nowrap text-sm py-4 md:px-8 font-medium data-[state=active]:bg-primary data-[state=active]:text-white"
+                    >
+                      {cat.title}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              )}
+
               {
                 loading ?
-                  <div className="flex justify-center items-center h-100">
-                    <Loader2 className="size-12 animate-spin text-primary" />
+                  <div className="flex flex-col gap-6 mt-6 items-center">
+                    <Skeleton className="h-56 w-[90%] rounded-xl" />
+                    <div className="w-[90%] flex flex-col gap-2">
+                      <Skeleton className="h-4 w-2/3" />
+                      <Skeleton className="h-4 w-1/3" />
+                    </div>
                   </div>
                   :
                   <>

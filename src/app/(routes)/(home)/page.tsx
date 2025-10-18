@@ -10,6 +10,8 @@ import WhatsNew from "./_components/whats-new";
 import Journals from "./_components/journals";
 import WhyApollo from "./_components/why-apollo";
 import Adds from "./_components/adds";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -24,7 +26,9 @@ export default function Page() {
       <Hero />
       <Community />
       <RecentTest />
-      <BrandProduct />
+      <Suspense fallback={<Skeleton className="h-[125px] w-[250px] rounded-xl" />}>
+        <BrandProduct />
+      </Suspense>
       <AddPlacement />
       <ApolloCreators />
       <WhatsNew />
