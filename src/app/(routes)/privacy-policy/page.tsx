@@ -9,10 +9,7 @@ export const metadata: Metadata = {
     }
 };
 
-export default function terms() {
-    return (
-        <main className="">
-            <PrivacyPolicy />
-        </main>
-    );
+export default function Page() {
+    return <PrivacyPolicy />
+
 }
