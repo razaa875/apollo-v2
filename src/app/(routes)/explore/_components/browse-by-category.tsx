@@ -1,12 +1,16 @@
 "use client";
 
-import { ICategories } from "@/common/models/interface";
-import { apiService } from "@/common/services";
+import { useEffect, useState } from "react";
+
+import Image from "next/image";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+
+import { apiService } from "@/common/services";
+
+import { ICategories } from "@/common/models/interface";
 
 export default function BrowseByCategory() {
     const [categories, setCategories] = useState<ICategories[]>([]);

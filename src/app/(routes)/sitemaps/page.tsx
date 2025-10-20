@@ -8,6 +8,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SiteMap() {
+export default function Page() {
   return <SitemapMain />;
 }
