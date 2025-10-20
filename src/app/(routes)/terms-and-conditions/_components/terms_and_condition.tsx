@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function TermsAndConditions() {
   return (
-    <div className="w-[90%] mx-auto">
+    <div className="w-[90%] mx-auto pt-28 md:pt-32">
       <h1 className="font-medium text-4xl lg:text-6xl text-center mt-8 mb-16">
         Terms and Conditions
       </h1>

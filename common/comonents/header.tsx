@@ -69,7 +69,7 @@ export const Header = () => {
     return (
         <>
             {!Boolean(path && authRoutes.includes(path)) && (
-                <header className="pt-28 md:pt-32">
+                <header>
                     {
                         isDesktop ?
                             <motion.div

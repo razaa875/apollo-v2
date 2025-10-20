@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
+    <main className="pt-28 md:pt-32">
       <Hero />
       <Community />
       <RecentTest />
@@ -35,6 +35,6 @@ export default function Page() {
       <Journals />
       <WhyApollo />
       <Adds />
-    </>
+    </main>
   );
 }

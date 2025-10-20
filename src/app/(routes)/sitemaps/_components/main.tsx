@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function SitemapMain() {
   return (
-    <main>
+    <main className="pt-28 md:pt-32">
       <div className="w-[90%] lg:w-[80%] mx-auto mb-6 lg:mb-14">
         <div className="text-center ">
           <h1 className="font-medium text-4xl lg:text-6xl text-center mt-8">Sitemaps</h1>

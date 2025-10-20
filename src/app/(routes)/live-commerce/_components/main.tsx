@@ -122,7 +122,7 @@ export default function LiveCommerceMain() {
 
     return (
         <>
-            <h1 className="font-medium text-4xl lg:text-6xl text-center mt-8 mb-16">Live Commerce</h1>
+            <h1 className="font-medium text-4xl lg:text-6xl text-center mt-8 mb-16 pt-28 md:pt-32">Live Commerce</h1>
             <div className="w-[90%] mx-auto flex flex-col items-center justify-center rounded-[20px] drop-shadow-2xl px-6 py-[4%] text-center backdrop-blur-2xl border-3 border-white bg-background mb-16">
                 <h2 className="text-xl lg:text-5xl font-medium mb-4">
                     Don’t Miss Glen Powell’s Top 15 Favorite Products!

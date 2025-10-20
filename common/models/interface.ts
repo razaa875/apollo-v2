@@ -41,3 +41,22 @@ export interface IProductByCategory {
   custom_deal_end_date: string | null;
   slug: string;
 }
+
+export interface INewArrivals {
+  id: number,
+  image: string,
+  title: string,
+  price: string,
+  sale_price: string,
+  rating: string,
+  reviews: string,
+  link: string,
+  category_ids: number[],
+  categories: string[],
+  description: string,
+  stock: number,
+  is_new_arrival: number,
+  is_deal: number,
+  discount: string,
+  slug: string
+}

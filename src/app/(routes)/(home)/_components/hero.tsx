@@ -19,8 +19,8 @@ export default function Hero() {
 
   if (isLoading) {
     return (
-      <section className="relative w-[90%] mx-auto h-90 lg:h-110 2xl:h-130 flex justify-center items-center">
-        <Skeleton className="w-[90%] h-[80%] rounded-2xl" />
+      <section className="relative h-90 lg:h-110 2xl:h-130 flex justify-center items-center">
+        <Skeleton className="w-full h-[80%]" />
       </section>
     );
   }
