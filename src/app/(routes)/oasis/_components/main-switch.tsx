@@ -5,12 +5,19 @@ import React from "react";
 import { Telescope, Rss } from "lucide-react";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import ExploreTheBest from "./explore-the-best";
 import { Separator } from "@/components/ui/separator";
+
+import ExploreTheBest from "./explore-the-best";
 import BrowseByCategory from "./browse-by-category";
 import ExploreFeaturedBoard from "./explore-featured-boards";
 import WhatsNew from "./whats-new";
 import CreatersAndAstros from "./creators-astro";
+import SocialUnboxing from "./social-unboxing";
+import Sales from "./sales";
+import JournalsGuides from "./journals-guides";
+import FeedCreatorsAstros from "./feed-creators-astros";
+import ExploreAlternatives from "./explore-alternatives";
+import Videos from "./videos";
 
 export default function Switch() {
     return (
@@ -26,7 +33,7 @@ export default function Switch() {
                     </TabsTrigger>
                 </TabsList>
 
-                <div className="w-[90%] mx-auto">
+                <div className="">
                     <TabsContent value="discover">
                         <ExploreTheBest />
                         <Separator className="my-12 xl:my-16" />
@@ -36,10 +43,22 @@ export default function Switch() {
                         <WhatsNew />
                         <Separator className="my-12 xl:my-16" />
                         <CreatersAndAstros />
+                        <Separator className="mb-12 xl:mb-16" />
+                        <SocialUnboxing />
+                        <Separator className="my-12 xl:my-16" />
+                        <Sales />
+                        <Separator className="my-12 xl:my-16" />
+                        <JournalsGuides />
                     </TabsContent>
 
                     <TabsContent value="personal-feed">
-
+                        <FeedCreatorsAstros />
+                        <Separator className="my-12 xl:my-16" />
+                        <ExploreAlternatives />
+                        <Separator className="my-12 xl:my-16" />
+                        <Videos />
+                        <Separator className="my-12 xl:my-16" />
+                        <Sales />
                     </TabsContent>
                 </div>
             </Tabs>

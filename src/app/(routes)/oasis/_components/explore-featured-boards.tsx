@@ -166,7 +166,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ mainImage, thumbnails, author
 
 export default function ExploreFeaturedBoard() {
     return (
-        <>
+        <section className="w-[90%] mx-auto">
             <h2 className="w-[90%] mx-auto text-center text-4xl lg:text-6xl font-medium">Explore Featured Boards</h2>
             <p className="w-[90%] mx-auto text-center text-base lg:text-xl text-black/50 font-normal mt-3">Explore reviews, demos, and live action.</p>
             <div className="flex flex-col md:flex-row md:flex-wrap gap-8 mt-8 md:mt-16 xl:mt-20">
@@ -180,6 +180,6 @@ export default function ExploreFeaturedBoard() {
                     />
                 ))}
             </div>
-        </>
+        </section>
     )
 }

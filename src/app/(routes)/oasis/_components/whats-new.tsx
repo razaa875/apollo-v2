@@ -52,7 +52,7 @@ const MasonryGrid = ({ images }: MasonryGridProps) => {
 
 export default function WhatsNew() {
     return (
-        <section className="mt-12 xl:mt-16">
+        <section className="w-[90%] mx-auto mt-12 xl:mt-16">
             <h2 className="w-[90%] mx-auto text-center text-4xl lg:text-6xl font-medium">What’s New</h2>
             <p className="w-[90%] mx-auto text-center text-base lg:text-xl text-black/50 font-normal mt-3">Explore reviews, demos, and live action.</p>
             <div className="mt-12">

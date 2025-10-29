@@ -38,8 +38,10 @@ const tableData = [
 
 export default function Community() {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
 

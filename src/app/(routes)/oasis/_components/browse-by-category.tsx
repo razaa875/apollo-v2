@@ -33,7 +33,7 @@ export default function BrowseByCategory() {
     }, []);
 
     return (
-        <>
+        <section className="w-[90%] mx-auto">
             <h2 className="font-medium text-4xl lg:text-6xl text-center mb-16 xl:mb-20">Browse By Cateogery</h2>
             {loadingCategories ? (
                 <div className="flex flex-wrap gap-4">
@@ -65,6 +65,6 @@ export default function BrowseByCategory() {
                     </div>
                 </ScrollArea>
             )}
-        </>
+        </section>
     )
 }
