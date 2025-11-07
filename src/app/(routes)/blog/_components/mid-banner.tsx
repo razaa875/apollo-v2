@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export default function MidBanner() {
   return (
-    <section className="relative w-[90%] mx-auto h-[624px] rounded-2xl overflow-hidden flex items-center mt-24 xxl:mt-44">
+    <section className="relative w-[90%] mx-auto h-[624px] rounded-2xl overflow-hidden flex items-center mt-24 xl:mt-44">
       {/* Background Image */}
       <Image
         src="/images/blog/midBanner.webp" // <-- replace with your image path
@@ -19,7 +19,7 @@ export default function MidBanner() {
       <div className="absolute inset-0 " />
 
       {/* Content */}
-      <div className="relative z-10 text-white px-8 sm:px-16 md:px-24 w-full xxl:w-[50%]">
+      <div className="relative z-10 text-white px-8 sm:px-16 md:px-24 w-full xl:w-[50%]">
         <h1 className="text-3xl sm:text-4xl font-semibold mb-4 leading-tight">
           Lorem ipsum dolor sit amet consectetur.
         </h1>
