@@ -49,7 +49,7 @@ export const SideNav = () => {
                 className={`${normalizedPath === item.href
                   ? "text-white bg-primary"
                   : "text-black bg-primary/10"
-                  } size-16 grid place-items-center rounded-full`}
+                  } size-16 md:size-16 grid place-items-center rounded-full`}
               >
                 {item.Icon}
               </Button>
@@ -61,7 +61,7 @@ export const SideNav = () => {
             </Link>
           </div>
         ))}
-        <div onClick={() => setLogoutDialog(true)} className="flex items-center gap-x-4 px-10 lg:px-6 xl:px-8 mb-4 lg:mt-[100%] xl:mt-[85%] 2xl:mt-[80%] cursor-pointer">
+        <div onClick={() => setLogoutDialog(true)} className="flex items-center gap-x-4 px-10 lg:px-6 xl:px-8 mb-4 lg:mt-[90%] xl:mt-[70%] cursor-pointer">
           <div className="size-16 bg-primary/10 text-foreground rounded-full flex items-center justify-center">
             <LogOut className="size-7 text-black" strokeWidth={1.5} />
           </div>
