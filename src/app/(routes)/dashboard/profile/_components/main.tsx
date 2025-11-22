@@ -25,8 +25,8 @@ import { Textarea } from "@/components/ui/textarea";
 
 type FormValues = {
   id: number;
-  firstName: string,
-  lastName: string,
+  fullName: string,
+  // lastName: string,
   name: string;
   email: string;
   role: string;
@@ -50,8 +50,8 @@ export const ProfileMain = () => {
   const { control, formState, register, setValue, reset, handleSubmit } =
     useForm<FormValues>({
       defaultValues: {
-        firstName: '',
-        lastName: '',
+        fullName: '',
+        // lastName: '',
         email: '',
         phone_number: '',
         date_of_birth: '',
@@ -98,8 +98,8 @@ export const ProfileMain = () => {
       if (user) {
         reset({
           profile_picture_url: user.profile_picture_url,
-          firstName: user.name.split(' ')[0] || '',
-          lastName: user.name.split(' ')[1] || '',
+          fullName: user.name || '',
+          // lastName: user.name.split(' ')[1] || '',
           email: user.email || '',
           phone_number: user.phone_number || '',
           date_of_birth: new Date(user.date_of_birth).toLocaleDateString('sv-SE') || '',
@@ -115,7 +115,7 @@ export const ProfileMain = () => {
     setIsSubmitting(true);
     const payload = {
       // profile_picture_url: values.profile_picture_url,
-      name: values.firstName + ' ' + values.lastName,
+      name: values.fullName,
       email: values.email,
       address: values.address,
       phone_number: values.phone_number,
@@ -135,7 +135,7 @@ export const ProfileMain = () => {
             address: values.address!,
             phone_number: values.phone_number,
             date_of_birth: values.date_of_birth,
-            email: values.email
+            email: values.email,
           });
           updateFormValues({
             ...res.data,
@@ -156,7 +156,7 @@ export const ProfileMain = () => {
   };
 
   useEffect(() => {
-    updateFormValues(user);
+    if(user) updateFormValues(user);
   }, [user, updateFormValues]);
 
   return (
@@ -181,8 +181,8 @@ export const ProfileMain = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-y-4 xl:gap-x-6 my-4 md:my-8 px-4 xl:px-32 text-base font-light md:text-sm">
-        <Input type="text" placeholder="First Name" {...register("firstName")} />
-        <Input type="text" placeholder="Last Name" {...register("lastName")} />
+        <Input type="text" className="col-span-1 lg:col-span-2" placeholder="Full Name" {...register("fullName")} />
+        {/* <Input type="text" placeholder="Last Name" {...register("lastName")} /> */}
         <Input disabled type="email" placeholder="Email" {...register("email")} />
         <Input type="phone" placeholder="Phone Number" {...register("phone_number")} />
         <Controller

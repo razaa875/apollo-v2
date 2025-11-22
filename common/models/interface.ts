@@ -85,3 +85,33 @@ export interface IExploreProducts {
   custom_deal_end_date: string
   slug: string;
 }
+
+export interface IOrderDetail {
+  id: number;
+  total_amount: string;
+  status: string;
+  created_at: string;
+  items: IOrderItem[];
+  shippingAddress: IShippingAddress;
+}
+
+export interface IOrderItem {
+  quantity: number;
+  price: string;
+  product_name: string;
+  product_slug: string;
+  product_description: string;
+  image_url: string;
+}
+
+export interface IShippingAddress {
+  full_name: string;
+  address_line1: string;
+  address_line2: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+  phone: string;
+  status: string;
+}
