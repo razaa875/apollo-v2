@@ -9,16 +9,16 @@ import { Loader2 } from "lucide-react";
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
 
 import { apiService } from "@/common/services";
 
 import { IOrderDetail } from "@/common/models/interface";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { Spinner } from "@/components/ui/spinner";
 
 export const MyOrdersMain = () => {
-    const [categories, setCategories] = useState<IOrderDetail[]>([]);
+    const [orders, setOrders] = useState<IOrderDetail[]>([]);
     const [openModal, setOpenModal] = useState(false);
     const [loading, setLoading] = useState(true);
     const [loadingDetail, setLoadingDetail] = useState(false);
@@ -28,7 +28,7 @@ export const MyOrdersMain = () => {
         apiService.httpGetRequest<{ status: string; data: IOrderDetail[] }>("user/orders", "", { config: { requireAuth: true } }).subscribe({
             next: (res) => {
                 if (res.status === "success") {
-                    setCategories(res.data);
+                    setOrders(res.data);
                 }
                 setLoading(false);
             },
@@ -70,7 +70,7 @@ export const MyOrdersMain = () => {
     };
 
     return (
-        <div className="w-[90%] mx-auto p-6">
+        <div className="w-[90%] mx-auto p-6 min-h-dvh">
             <h1 className="text-[24px] lg:text-[38px] xl:text-[42px] my-6 font-bold text-center">
                 My Orders
             </h1>
@@ -92,7 +92,7 @@ export const MyOrdersMain = () => {
                             </TableHeader>
 
                             <TableBody>
-                                {categories.map((item) => (
+                                {orders.map((item) => (
                                     <TableRow
                                         key={item.id}
                                         className="hover:bg-muted/40 transition-colors cursor-pointer"

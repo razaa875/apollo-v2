@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-import { Lock, LogOut, ShoppingBasket, UserCog } from "lucide-react";
+import { Heart, Lock, LogOut, ShoppingBasket, Truck, UserCog } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -32,6 +32,16 @@ export const SideNav = () => {
       name: "My Orders",
       href: "/dashboard/my-orders",
       Icon: <ShoppingBasket className="size-6" strokeWidth={1.5} />,
+    },
+    {
+      name: "My Wishlist",
+      href: "/dashboard/my-wishlist",
+      Icon: <Heart className="size-6" strokeWidth={1.5} />,
+    },
+    {
+      name: "Shipping Address",
+      href: "/dashboard/shipping-address",
+      Icon: <Truck className="size-6" strokeWidth={1.5} />,
     },
   ];
 
@@ -66,7 +76,7 @@ export const SideNav = () => {
             </Link>
           </div>
         ))}
-        <div onClick={() => setLogoutDialog(true)} className="flex items-center gap-x-4 px-10 lg:px-6 xl:px-8 mb-4 lg:mt-[90%] xl:mt-[70%] cursor-pointer">
+        <div onClick={() => setLogoutDialog(true)} className="flex items-center gap-x-4 px-10 lg:px-6 xl:px-8 mb-4 cursor-pointer border-t border-black/15 pt-4 mt-[15%] xl:mt-[10%] 2xl:mt-[15%]">
           <div className="size-13 bg-primary/10 text-red-500 rounded-full flex items-center justify-center">
             <LogOut className="size-6 text-red-500" strokeWidth={1.5} />
           </div>

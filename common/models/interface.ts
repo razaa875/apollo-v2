@@ -105,6 +105,7 @@ export interface IOrderItem {
 }
 
 export interface IShippingAddress {
+  id: number;
   full_name: string;
   address_line1: string;
   address_line2: string;
@@ -114,4 +115,20 @@ export interface IShippingAddress {
   country: string;
   phone: string;
   status: string;
+  is_default: number;
+  created_at: string;
+}
+
+
+export interface IWishList {
+  wishlist_id: number;
+  product_id: number;
+  name: string;
+  slug: string;
+  description: string;
+  price: string;
+  sale_price: string;
+  image_url: string;
+  is_deal: number;
+  deal_discount_percent: number;
 }

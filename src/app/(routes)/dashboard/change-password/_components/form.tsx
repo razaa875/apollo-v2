@@ -71,7 +71,9 @@ export const ChangePasswordMain = () => {
         <Button
           loading={loading}
           type="submit"
-          className="mx-auto mt-5 text-xl p-6"
+          variant="default"
+          size="default"
+          className="mx-auto mt-5"
         >
           Submit
         </Button>
