@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
-import { Star } from "lucide-react";
+import { Plus, Star } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,9 +14,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { apiService } from "@/common/services";
 
 import { ICategories, IProductByCategory } from "@/common/models/interface";
+import { useCart } from "@/providers/cart";
 
 export default function BrandProduct() {
 
+  const {addItem} = useCart();
+  
   const [categories, setCategories] = useState<ICategories[]>([]);
   const [products, setProducts] = useState<IProductByCategory[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("");
@@ -177,7 +180,7 @@ export default function BrandProduct() {
                             />
                           </div>
                           <h4 className="text-xl xl:text-lg font-semibold line-clamp-1 mb-1">
-                            {product.title}
+                            {product.title} <Plus size={22} onClick={() => addItem(product)}/>
                           </h4>
                           <div className="flex items-center justify-between">
                             <p className="font-medium text-lg xl:text-base text-primary/60">${product.price}</p>
