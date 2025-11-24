@@ -48,7 +48,7 @@ http.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       const { requireAuth, signout } = error.config as CustomConfig;
-      if (requireAuth && signout) signout();
+      if (requireAuth && signout) signout("/login");
     }
     return Promise.reject(error);
   }

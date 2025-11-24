@@ -33,8 +33,8 @@ export const WishlistMain = () => {
                 setLoading(false);
             },
             error: (err) => {
-                if (err.status === 401) {
-                    signout();
+                if (err.status === 401 || err.status === 403) {
+                    signout("/login");
                 }
                 console.log(err.message);
                 setLoading(false);
@@ -49,8 +49,8 @@ export const WishlistMain = () => {
                 setWishLists(prev => prev.filter(item => item.product_id !== id));
             },
             error: (err) => {
-                if (err.status === 401) {
-                    signout();
+                if (err.status === 401 || err.status === 403) {
+                    signout("/login");
                 }
             }
         });

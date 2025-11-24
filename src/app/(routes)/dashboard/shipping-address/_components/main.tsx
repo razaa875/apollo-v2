@@ -37,8 +37,8 @@ export const ShippingAddressMain = () => {
                 }
             },
             error: (err) => {
-                if (err.status === 401) {
-                    signout();
+                if (err.status === 401 || err.status === 403) {
+                    signout("/login");
                 }
                 console.log(err.message);
                 setLoading(false);
@@ -61,7 +61,7 @@ export const ShippingAddressMain = () => {
             error: (err) => {
                 console.log(err.message);
                 toast.error(err.message);
-                if (err.status === 401 || err.status === 403) signout();
+                if (err.status === 401 || err.status === 403) signout("/login");
             },
         });
     }, [fetchDataMethods, signout]);
@@ -83,7 +83,7 @@ export const ShippingAddressMain = () => {
             error: (err) => {
                 console.log(err.message);
                 toast.error(err.message);
-                if (err.status === 401 || err.status === 403) signout();
+                if (err.status === 401 || err.status === 403) signout("/login");
             },
         });
     }, [fetchDataMethods, signout]);
