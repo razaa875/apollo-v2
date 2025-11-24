@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-import { Lock, LogOut, UserCog } from "lucide-react";
+import { Heart, Lock, LogOut, ShoppingBasket, Truck, UserCog } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -21,12 +21,27 @@ export const SideNav = () => {
     {
       name: "Account Info",
       href: "/dashboard/profile",
-      Icon: <UserCog className="size-7" strokeWidth={1.5} />,
+      Icon: <UserCog className="size-6" strokeWidth={1.5} />,
     },
     {
       name: "Change Password",
       href: "/dashboard/change-password",
-      Icon: <Lock className="size-7" strokeWidth={1.5} />,
+      Icon: <Lock className="size-6" strokeWidth={1.5} />,
+    },
+    {
+      name: "My Orders",
+      href: "/dashboard/my-orders",
+      Icon: <ShoppingBasket className="size-6" strokeWidth={1.5} />,
+    },
+    {
+      name: "My Wishlist",
+      href: "/dashboard/my-wishlist",
+      Icon: <Heart className="size-6" strokeWidth={1.5} />,
+    },
+    {
+      name: "Shipping Address",
+      href: "/dashboard/shipping-address",
+      Icon: <Truck className="size-6" strokeWidth={1.5} />,
     },
   ];
 
@@ -49,7 +64,7 @@ export const SideNav = () => {
                 className={`${normalizedPath === item.href
                   ? "text-white bg-primary"
                   : "text-black bg-primary/10"
-                  } size-16 grid place-items-center rounded-full`}
+                  } size-16 md:size-13 grid place-items-center rounded-full`}
               >
                 {item.Icon}
               </Button>
@@ -61,9 +76,9 @@ export const SideNav = () => {
             </Link>
           </div>
         ))}
-        <div onClick={() => setLogoutDialog(true)} className="flex items-center gap-x-4 px-10 lg:px-6 xl:px-8 mb-4 lg:mt-[100%] xl:mt-[85%] 2xl:mt-[80%] cursor-pointer">
-          <div className="size-16 bg-primary/10 text-foreground rounded-full flex items-center justify-center">
-            <LogOut className="size-7 text-black" strokeWidth={1.5} />
+        <div onClick={() => setLogoutDialog(true)} className="flex items-center gap-x-4 px-10 lg:px-6 xl:px-8 mb-4 cursor-pointer border-t border-black/15 pt-4 mt-[15%] xl:mt-[10%] 2xl:mt-[15%]">
+          <div className="size-13 bg-primary/10 text-red-500 rounded-full flex items-center justify-center">
+            <LogOut className="size-6 text-red-500" strokeWidth={1.5} />
           </div>
           <span className="text-lg font-semibold">Logout</span>
         </div>

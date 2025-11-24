@@ -86,6 +86,7 @@ export interface IExploreProducts {
   slug: string;
 }
 
+<<<<<<< HEAD
 
 export interface IProduct {
   id: number;
@@ -109,3 +110,51 @@ export interface IProduct {
   slug: string;
 }
 
+=======
+export interface IOrderDetail {
+  id: number;
+  total_amount: string;
+  status: string;
+  created_at: string;
+  items: IOrderItem[];
+  shippingAddress: IShippingAddress;
+}
+
+export interface IOrderItem {
+  quantity: number;
+  price: string;
+  product_name: string;
+  product_slug: string;
+  product_description: string;
+  image_url: string;
+}
+
+export interface IShippingAddress {
+  id: number;
+  full_name: string;
+  address_line1: string;
+  address_line2: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+  phone: string;
+  status: string;
+  is_default: number;
+  created_at: string;
+}
+
+
+export interface IWishList {
+  wishlist_id: number;
+  product_id: number;
+  name: string;
+  slug: string;
+  description: string;
+  price: string;
+  sale_price: string;
+  image_url: string;
+  is_deal: number;
+  deal_discount_percent: number;
+}
+>>>>>>> 5989f2d7523ac37c63b0551983dbd52b64106ecd

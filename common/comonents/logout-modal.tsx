@@ -12,6 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { useAuth } from "@/providers";
+import { apiService } from "../services";
+import { toast } from "sonner";
 
 interface LogoutModalProps {
   open: boolean;
@@ -24,9 +26,22 @@ export default function LogoutModal({ open, onOpenChange }: LogoutModalProps) {
 
   const handleLogout = async () => {
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    signout("/login");
-    setLoading(false);
+    apiService.httpPostRequest<{ status: string; message: string }>("user/logout", '', "", { setCache: false, config: { requireAuth: true } }).subscribe({
+      next: (res) => {
+        if (res.status === "success") {
+          toast.success(res.message);
+          signout("/login");
+          setLoading(false);
+        }
+      },
+      error: (err) => {
+        console.log(err.message);
+        toast.error(err.message);
+        setLoading(false);
+      },
+    });
+
+    // await new Promise((resolve) => setTimeout(resolve, 1500));
   };
 
   return (

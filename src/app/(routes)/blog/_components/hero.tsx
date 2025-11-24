@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="xl:min-h-screen">
+    <section className="xl:h-screen">
       <Image
         src="/images/blog/hero.webp"
         alt="Hero Image"
