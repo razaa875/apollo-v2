@@ -86,7 +86,6 @@ export interface IExploreProducts {
   slug: string;
 }
 
-<<<<<<< HEAD
 
 export interface IProduct {
   id: number;
@@ -110,7 +109,6 @@ export interface IProduct {
   slug: string;
 }
 
-=======
 export interface IOrderDetail {
   id: number;
   total_amount: string;
@@ -157,4 +155,3 @@ export interface IWishList {
   is_deal: number;
   deal_discount_percent: number;
 }
->>>>>>> 5989f2d7523ac37c63b0551983dbd52b64106ecd
