@@ -155,3 +155,10 @@ export interface IWishList {
   is_deal: number;
   deal_discount_percent: number;
 }
+
+export interface IPagination {
+  currentPage: number;
+  itemsPerPage: number;
+  totalItems: number;
+  totalPages: number;
+}

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Products from "./_components/products";
 
 export const metadata: Metadata = {
     title: "Products",
@@ -8,10 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-    return (
-        <>
-            <h1 className="font-medium text-4xl lg:text-6xl text-center mt-8 mb-16 pt-28 md:pt-32">Products</h1>
-
-        </>
-    );
+    return <Products />;
 }
