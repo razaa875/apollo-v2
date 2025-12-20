@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Star } from "lucide-react";
 import { apiService } from "@/common/services";
@@ -58,14 +58,14 @@ export default function ProductDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Image */}
         <div className="rounded-3xl overflow-hidden shadow-xl">
-          <Image
+          {/* <Image
             src={product.image || "/images/no-data/no-data.svg"}
             alt={product.title}
             width={800}
             height={800}
             className="w-full h-full object-cover"
             priority
-          />
+          /> */}
         </div>
 
         {/* Content */}
