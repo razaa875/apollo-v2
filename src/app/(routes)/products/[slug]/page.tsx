@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { apiService } from "@/common/services";
 import { IProduct } from "@/common/models/interface";
 import Hero from "./_components/hero";
@@ -52,11 +52,7 @@ export default function ProductDetailPage() {
   }
 
   if (!product) {
-    return (
-      <div className="h-[60vh] flex justify-center items-center text-xl text-red-500">
-        Product not found
-      </div>
-    );
+    return notFound();
   }
 
   return (

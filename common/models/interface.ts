@@ -103,6 +103,7 @@ export interface IProduct {
   is_deal: boolean;
   deal_discount_percent: number;
   is_custom_deal: boolean;
+  is_wishlisted: boolean;
   custom_deal_description: string;
   custom_deal_start_date: string;
   custom_deal_end_date: string;
@@ -161,4 +162,13 @@ export interface IPagination {
   itemsPerPage: number;
   totalItems: number;
   totalPages: number;
+}
+
+export interface IReview {
+  comment: string;
+  createdAt: string;
+  userName: string;
+  id: number;
+  rating: number;
+  userId: number;
 }
