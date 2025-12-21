@@ -33,20 +33,22 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${inter.className} antialiased bg-no-repeat bg-gradient-to-br from-cyan-100 via-blue-100 to-indigo-100`}
+        className={`${inter.variable} ${inter.className} antialiased max-w-[2000px] mx-auto`}
       >
-        <GlobalLoader>
-          <UserProvider>
-            <AuthProvider token={token}>
-              <CartProvider>
-                <Header />
-                {children}
-                <Footer />
-              </CartProvider>
-              <Toaster richColors position="top-center" />
-            </AuthProvider>
-          </UserProvider>
-        </GlobalLoader>
+        <div className=" bg-no-repeat bg-gradient-to-br from-cyan-100 via-blue-100 to-indigo-100 min-h-screen">
+          <GlobalLoader>
+            <UserProvider>
+              <AuthProvider token={token}>
+                <CartProvider>
+                  <Header />
+                  {children}
+                  <Footer />
+                </CartProvider>
+                <Toaster richColors position="top-center" />
+              </AuthProvider>
+            </UserProvider>
+          </GlobalLoader>
+        </div>
       </body>
     </html>
   );
