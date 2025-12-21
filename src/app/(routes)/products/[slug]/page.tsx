@@ -11,6 +11,7 @@ import LifeExpectency from "./_components/life-expectency";
 import Comparison from "./_components/comparison";
 import WhyApollo from "../../(home)/_components/why-apollo";
 import { Separator } from "@/components/ui/separator";
+import JournalGuide from "./_components/journal-guide";
 
 export default function ProductDetailPage() {
   const params = useParams(); // Get slug from route
@@ -69,6 +70,7 @@ export default function ProductDetailPage() {
         <Separator className="mb-8 md:mb-12 mt-4 md:mt-8" />
         <WhyApollo />
       </div>
+      <JournalGuide product={product}/>
     </main>
   );
 }
