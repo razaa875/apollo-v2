@@ -21,7 +21,7 @@ export default function WhyApollo() {
 
   return (
     <>
-      <section className="w-[90%] mx-auto flex flex-col md:flex-row justify-between">
+      <section className="w-[90%] mx-auto flex flex-col gap-y-12 lg:flex-row justify-between">
         {/* Left Content */}
         <div className="w-full lg:w-[49%] space-y-6 xl:space-y-9">
           <h2 className="text-4xl lg:text-6xl font-medium">Why Apollo?</h2>
@@ -60,7 +60,7 @@ export default function WhyApollo() {
 
       <Separator className="my-8 md:mb-12 lg:mb-20 lg:mt-16" />
 
-      <section className="w-[90%] mx-auto flex flex-col md:flex-row-reverse justify-between">
+      <section className="w-[90%] mx-auto flex flex-col gap-y-12 lg:flex-row-reverse justify-between">
         {/* Left Content */}
         <div className="w-full lg:w-[49%] space-y-6 xl:space-y-9">
           <h2 className="text-4xl lg:text-6xl font-medium">

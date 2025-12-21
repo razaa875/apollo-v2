@@ -2,13 +2,11 @@
 
 import { IProduct } from "@/common/models/interface";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   ArrowUpRight,
   ChevronDown,
   ExternalLink,
   Heart,
-  Star,
 } from "lucide-react";
 import Image from "next/image";
 import {
@@ -25,24 +23,30 @@ export default function Hero({ product }: { product: IProduct }) {
     "/images/blog/midBanner.webp",
   ];
   return (
-    <section className="w-[90%] mx-auto pt-32 pb-20">
-      <div className="flex flex-col lg:flex-row lg:justify-between">
-        <div className="lg:w-[40%]">
-          <h1 className="font-medium text-4xl lg:text-6xl">All Mountain SKI</h1>
+    <section className="w-[90%] mx-auto lg:pt-8 pb-20">
+      <div className="flex flex-col-reverse lg:flex-row lg:justify-between">
+        <div className="lg:w-[47%]">
+          <h1 className="font-medium text-4xl lg:text-6xl">{product.title}</h1>
           <p className="font-normal text-base text-primary/60 mt-5">
-            Our wide All Mountain ski, designed for a wide range of adventures.
-            For a lighter weight skier it works perfect as a powder ski as well.
-            Featuring a 106mm waist and a 19m turning radius at 178cm.
+            {product.description}
           </p>
-          <div className="flex flex-wrap gap-x-2 gap-y-4 lg:gap-x-8 mt-8">
-            <Button
-              type="button"
-              variant="ghost"
-              className="rounded-xl border-white hover:border-white hover:bg-transparent border-2 shadow-lg hover:shadow-lg py-6"
-            >
-              Carve
-            </Button>
-            <Button
+          {
+            product.categories.length > 0 &&
+            <div className="flex flex-wrap gap-x-2 gap-y-4 lg:gap-x-8 mt-8">
+              {
+                product.categories.map((item, i) => (
+                  <Button
+                    key={i}
+                    type="button"
+                    variant="ghost"
+                    className="rounded-xl border-white hover:border-white hover:bg-transparent border-2 shadow-lg hover:shadow-lg py-6"
+                  >
+                    {item}
+                  </Button>
+
+                ))
+              }
+              {/* <Button
               type="button"
               variant="ghost"
               className="rounded-xl border-white hover:border-white hover:bg-transparent border-2 shadow-lg hover:shadow-lg py-6"
@@ -55,20 +59,21 @@ export default function Hero({ product }: { product: IProduct }) {
               className="rounded-xl border-white hover:border-white hover:bg-transparent border-2 shadow-lg hover:shadow-lg py-6"
             >
               Single Ski
-            </Button>
-          </div>
+            </Button> */}
+            </div>
+          }
           <div className="mt-10">
-            <p className="text-primary/60 font-medium">All Mountain</p>
-            <p className="font-medium text-2xl lg:text-4xl mt-2">$1.077,00</p>
-            <div className="flex gap-x-4 mt-3">
+            <p className="text-primary/60 font-medium">Price</p>
+            <p className="font-medium text-2xl lg:text-4xl mt-2">${product.price}</p>
+          </div>
+          <div className="flex gap-x-4 mt-3">
               <div className="flex items-center font-medium gap-x-2 text-primary/60">
                 <p>171 CM</p>
                 <ChevronDown size={20} />
               </div>
               <p className="text-[#27AE60] font-medium">Instant Shipping</p>
             </div>
-          </div>
-          <div className="flex gap-4 mt-2 xl:mt-12">
+          <div className="flex gap-4 mt-2 xl:mt-6">
             <Button
               type="button"
               variant="outline"
@@ -92,30 +97,35 @@ export default function Hero({ product }: { product: IProduct }) {
             </Button>
           </div>
         </div>
-        {/* <Separator className="my-8 md:my-16" /> */}
-        <div className="lg:w-[58%] mt-8 lg:mt-0">
+        <div className="w-[2%]">
+        <div className="w-px h-full bg-[#2C2C2C26]"></div>
+
+        </div>
+        <div className="lg:w-[47%] mt-8 lg:mt-0">
           <Image
             src={"/images/blog/midBanner.webp"}
             alt={product.title}
-            height={200}
-            width={400}
+            height={1248}
+            width={3240}
             loading="lazy"
-            className="w-full h-[250px] object-cover rounded-[20px] drop-shadow-xl"
+            quality={75}
+            className="w-full h-100 object-cover object-center rounded-[20px] drop-shadow-xl"
           />
           <Carousel className="mt-5">
             <CarouselContent>
               {videoUrl.map((item, i) => (
                 <CarouselItem
                   key={i}
-                  className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%] xl:mr-3"
+                  className="basis-[33%] md:basis-[22%] lg:basis-[22%] xl:basis-[17%] xl:mr-3"
                 >
                   <Image
                     src={"/images/blog/midBanner.webp"}
                     alt={product.title}
-                    height={200}
-                    width={400}
+                    height={1248}
+                    width={3240}
                     loading="lazy"
-                    className="w-full h-[100px] object-cover rounded-[20px] drop-shadow-xl"
+                    quality={75}
+                    className="w-full h-25 object-cover rounded-[20px]"
                   />
                 </CarouselItem>
               ))}
