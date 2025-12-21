@@ -105,7 +105,7 @@ export default function WhatsThink() {
           Explore reviews, demos, and live action.
         </p>
 
-        <Carousel className="w-[90%] mx-auto md:mr-0 md:ml-auto">
+        <Carousel className="w-[95%] mx-auto md:mr-0 md:ml-auto">
           <CarouselContent>
             {videoUrl.map((item) => (
               <CarouselItem

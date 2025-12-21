@@ -12,8 +12,8 @@ export default function ApolloIndex({ product }: { product: IProduct }) {
         <Image
           src={"/images/product-detail/apollo-index.png"}
           alt={product.title}
-          height={200}
-          width={400}
+          height={1639}
+          width={3354}
           loading="lazy"
           className="size-full object-cover"
         />

@@ -12,11 +12,7 @@ import { Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function ProductReview({ product }: { product: IProduct }) {
- 
-
   const [review, setReview] = useState<IReview[]>([])
-
-  
 
   useEffect(() => {
     apiService
@@ -31,9 +27,10 @@ export default function ProductReview({ product }: { product: IProduct }) {
             setReview(res.data);
           }
         },
-        error: () => console.log(''),
+        error: (err) => console.log(err),
       });
-  }, [product.id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="w-[90%] mx-auto">
@@ -62,13 +59,13 @@ export default function ProductReview({ product }: { product: IProduct }) {
                     />
                   ))}
                 </div>
-                <p className="font-bold text-lg mt-1">{item.title}</p>
+                {/* <p className="font-bold text-lg mt-1">{item.title}</p>
                 <h2 className="font-medium text-xl mt-1">{item.name}</h2>
-                <p className="font-medium text-sm mt-2">{item.desc}</p>
-              </div>
+                <p className="font-medium text-sm mt-2">{item.desc}</p> */}
               <h2 className="font-medium text-xl mt-3">{item.userName}</h2>
               <p className="font-medium text-sm mt-2 line-clamp-2">{item.comment}</p>
               <p className="text-primary/60 text-sm mt-2"> {format(new Date(item.createdAt), "dd MMM yyyy")}</p>
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>

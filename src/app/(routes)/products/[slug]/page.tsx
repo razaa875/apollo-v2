@@ -13,6 +13,8 @@ import FeelFree from "./_components/feel-free";
 import ApolloIndex from "./_components/apollo-index";
 import TabsSwitch from "./_components/tab-switch";
 import { Separator } from "@/components/ui/separator";
+import ExploreAlternatives from "../../oasis/_components/explore-alternatives";
+import OtherProducts from "./_components/other-products";
 
 export default function ProductDetailPage() {
   const params = useParams(); // Get slug from route
@@ -65,9 +67,13 @@ export default function ProductDetailPage() {
       <ProductReview product={product} />
       <LifeExpectency product={product} />
       <ApolloIndex product={product} />
+      <JournalGuide product={product} />
       {/* <Comparison product={product} /> */}
       <FeelFree />
-      <JournalGuide product={product} />
+      <Separator className="my-8 md:my-12 lg:my-16" />
+      <ExploreAlternatives />
+      <Separator className="my-8 md:my-12 lg:my-16" />
+      <OtherProducts/>
     </main>
   );
 }

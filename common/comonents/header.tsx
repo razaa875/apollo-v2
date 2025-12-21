@@ -110,7 +110,7 @@ export const Header = () => {
                                         <Link href="/cart">
                                             <ShoppingBag className="size-5" />
                                         </Link>
-                                        <Link href="/product" className="border-x border-black px-2">
+                                        <Link href="/products" className="border-x border-black px-2">
                                             <Search className="size-5" />
                                         </Link>
                                         {isAuthenticated ? (

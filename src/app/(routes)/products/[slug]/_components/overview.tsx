@@ -87,7 +87,7 @@ export default function Overview() {
               key={i}
               className={cn(
                 `
-                absolute z-20
+                absolute z-10
                 size-24 rounded-full
                 bg-gradient-to-br ${stat.color}
                 flex flex-col items-center justify-center
