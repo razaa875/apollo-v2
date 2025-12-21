@@ -4,8 +4,8 @@ import "./globals.css";
 import { AuthProvider, UserProvider } from "@/providers";
 import { cookies } from "next/headers";
 import { Toaster } from "@/components/ui/sonner";
-import { Header } from "../../common/comonents/header";
-import { Footer } from "../../common/comonents/footer";
+import { Header } from "@/common/comonents/header";
+import { Footer } from "@/common/comonents/footer";
 import GlobalLoader from "@/common/comonents/global-loader";
 import { CartProvider } from "@/providers/cart";
 
