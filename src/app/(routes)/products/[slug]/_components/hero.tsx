@@ -26,15 +26,15 @@ export default function Hero({ product }: { product: IProduct }) {
   ];
   return (
     <section className="w-[90%] mx-auto pt-32 pb-20">
-      <div className="flex justify-between">
-        <div className="w-[40%]">
+      <div className="flex flex-col lg:flex-row lg:justify-between">
+        <div className="lg:w-[40%]">
           <h1 className="font-medium text-4xl lg:text-6xl">All Mountain SKI</h1>
           <p className="font-normal text-base text-primary/60 mt-5">
             Our wide All Mountain ski, designed for a wide range of adventures.
             For a lighter weight skier it works perfect as a powder ski as well.
             Featuring a 106mm waist and a 19m turning radius at 178cm.
           </p>
-          <div className="flex gap-x-8 mt-8">
+          <div className="flex flex-wrap gap-x-2 gap-y-4 lg:gap-x-8 mt-8">
             <Button
               type="button"
               variant="ghost"
@@ -59,7 +59,7 @@ export default function Hero({ product }: { product: IProduct }) {
           </div>
           <div className="mt-10">
             <p className="text-primary/60 font-medium">All Mountain</p>
-            <p className="font-medium text-4xl mt-2">$1.077,00</p>
+            <p className="font-medium text-2xl lg:text-4xl mt-2">$1.077,00</p>
             <div className="flex gap-x-4 mt-3">
               <div className="flex items-center font-medium gap-x-2 text-primary/60">
                 <p>171 CM</p>
@@ -93,7 +93,7 @@ export default function Hero({ product }: { product: IProduct }) {
           </div>
         </div>
         {/* <Separator className="my-8 md:my-16" /> */}
-        <div className="w-[58%]">
+        <div className="lg:w-[58%] mt-8 lg:mt-0">
           <Image
             src={"/images/blog/midBanner.webp"}
             alt={product.title}
@@ -126,8 +126,8 @@ export default function Hero({ product }: { product: IProduct }) {
               <p className="font-medium text-base">Market Benchmark Scores</p>
               <p className="text-primary/60 mt-1">Tesla vs overall market</p>
             </div>
-            <div className="flex">
-              <div className="w-[70%] flex">
+            <div className="flex flex-col lg:flex-row justify-center lg:justify-start lg:items-center mt-4">
+              <div className="lg:w-[70%] flex">
                 <div className="w-[25%] text-center">
                   <p className="font-medium text-lg">64</p>
                   <p className="font-medium text-primary/60 text-sm">GROWTH</p>
@@ -145,7 +145,7 @@ export default function Hero({ product }: { product: IProduct }) {
                   <p className="font-medium text-primary/60 text-sm">HEALTH</p>
                 </div>
               </div>
-              <div className="w-[30%] flex">
+              <div className="lg:w-[30%] flex mt-5 lg:mt-0 gap-x-5 items-center">
                 <Image
                   src={"/images/product-detail/mark.svg"}
                   alt={product.title}
@@ -160,7 +160,7 @@ export default function Hero({ product }: { product: IProduct }) {
                   className="rounded-xl border-white hover:border-white hover:bg-transparent border-2 shadow-lg hover:shadow-lg py-6"
                 >
                   <Image
-                    src={"/images/product-detail/award.svg"}
+                    src={"/images/product-detail/Awards.svg"}
                     alt={product.title}
                     height={50}
                     width={50}

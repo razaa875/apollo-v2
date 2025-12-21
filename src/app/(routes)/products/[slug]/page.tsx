@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { apiService } from "@/common/services";
 import { IProduct } from "@/common/models/interface";
 import Hero from "./_components/hero";
+import ProductReview from "./_components/review";
 
 export default function ProductDetailPage() {
   const params = useParams(); // Get slug from route
@@ -55,6 +56,7 @@ export default function ProductDetailPage() {
   return (
     <>
     <Hero product={product}/>
+    <ProductReview product={product}/>
     </>
   );
 }
