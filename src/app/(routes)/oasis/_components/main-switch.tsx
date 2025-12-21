@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { Telescope, Rss } from "lucide-react";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";

@@ -12,6 +12,7 @@ import Comparison from "./_components/comparison";
 import WhyApollo from "../../(home)/_components/why-apollo";
 import { Separator } from "@/components/ui/separator";
 import JournalGuide from "./_components/journal-guide";
+import TabsSwitch from "./_components/tab-switch";
 
 export default function ProductDetailPage() {
   const params = useParams(); // Get slug from route
@@ -62,15 +63,15 @@ export default function ProductDetailPage() {
   return (
     <main className="pt-28 md:pt-32">
       <Hero product={product} />
+      <Separator className="mb-8 md:mb-12 mt-4 md:mt-8" />
+      <TabsSwitch />
       <RecentTest />
       <ProductReview product={product} />
       <LifeExpectency product={product} />
       <Comparison product={product} />
-      <div>
-        <Separator className="mb-8 md:mb-12 mt-4 md:mt-8" />
-        <WhyApollo />
-      </div>
-      <JournalGuide product={product}/>
+      <Separator className="mb-8 md:mb-12 mt-4 md:mt-8" />
+      <WhyApollo />
+      <JournalGuide product={product} />
     </main>
   );
 }

@@ -48,29 +48,35 @@ export default function ProductReview({ product }: { product: IProduct }) {
   ];
   return (
     <div className="w-[90%] mx-auto">
-      <Carousel className="mt-5">
+      <Carousel opts={{
+        align: "start",
+        loop: true,
+      }}
+        className="mt-5">
         <CarouselContent>
           {review.map((item, i) => (
             <CarouselItem
               key={i}
-              className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%] xl:mr-3 bg-white p-4 rounded-xl shadow"
+              className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%]"
             >
-              <div className="flex gap-1">
-                {[...Array(5)].map((_, index) => (
-                  <Star
-                    key={index}
-                    size={16}
-                    className={
-                      index < item.rating
-                        ? "text-yellow-400 fill-yellow-400"
-                        : "text-gray-300"
-                    }
-                  />
-                ))}
+              <div className=" bg-white/50 p-4 rounded-xl shadow my-1">
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, index) => (
+                    <Star
+                      key={index}
+                      size={16}
+                      className={
+                        index < item.rating
+                          ? "text-yellow-400 fill-yellow-400"
+                          : "text-gray-300"
+                      }
+                    />
+                  ))}
+                </div>
+                <p className="font-bold text-lg mt-1">{item.title}</p>
+                <h2 className="font-medium text-xl mt-1">{item.name}</h2>
+                <p className="font-medium text-sm mt-2">{item.desc}</p>
               </div>
-              <p className="font-bold text-lg mt-1">{item.title}</p>
-              <h2 className="font-medium text-xl mt-1">{item.name}</h2>
-              <p className="font-medium text-sm mt-2">{item.desc}</p>
             </CarouselItem>
           ))}
         </CarouselContent>
