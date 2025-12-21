@@ -1,51 +1,40 @@
 "use client";
 
-import { IProduct } from "@/common/models/interface";
+import { IProduct, IReview } from "@/common/models/interface";
+import { apiService } from "@/common/services";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { format } from "date-fns";
 import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function ProductReview({ product }: { product: IProduct }) {
-  const review = [
-    {
-      id: 1,
-      rating: 5,
-      title: "Cillian Russell",
-      name: "Our wide All Mountain ski, designed for a wide range of adventures.",
-      desc: "This is our carving ski. Inspired by the dynamic world of free skiing and made for groomed slopes and sporadic off-piste adventures. Featuring a 93mm waist and a 15m turning radius at 175cm.",
-    },
-    {
-      id: 2,
-      rating: 4,
-      title: "Cillian Russell",
-      name: "Our wide All Mountain ski, designed for a wide range of adventures.",
-      desc: "This is our carving ski. Inspired by the dynamic world of free skiing and made for groomed slopes and sporadic off-piste adventures. Featuring a 93mm waist and a 15m turning radius at 175cm.",
-    },
-    {
-      id: 3,
-      rating: 3,
-      title: "Cillian Russell",
-      name: "Our wide All Mountain ski, designed for a wide range of adventures.",
-      desc: "This is our carving ski. Inspired by the dynamic world of free skiing and made for groomed slopes and sporadic off-piste adventures. Featuring a 93mm waist and a 15m turning radius at 175cm.",
-    },
-    {
-      id: 4,
-      rating: 4,
-      title: "Cillian Russell",
-      name: "Our wide All Mountain ski, designed for a wide range of adventures.",
-      desc: "This is our carving ski. Inspired by the dynamic world of free skiing and made for groomed slopes and sporadic off-piste adventures. Featuring a 93mm waist and a 15m turning radius at 175cm.",
-    },
-    {
-      id: 5,
-      rating: 2,
-      title: "Cillian Russell",
-      name: "Our wide All Mountain ski, designed for a wide range of adventures.",
-      desc: "This is our carving ski. Inspired by the dynamic world of free skiing and made for groomed slopes and sporadic off-piste adventures. Featuring a 93mm waist and a 15m turning radius at 175cm.",
-    },
-  ];
+ 
+
+  const [review, setReview] = useState<IReview[]>([])
+
+  
+
+  useEffect(() => {
+    apiService
+      .httpGetRequest<{ status: string; data: IReview[] }>(
+        `products/${product.id}/reviews`,
+        "",
+        { setCache: false }
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.status === "success") {
+            setReview(res.data);
+          }
+        },
+        error: () => console.log(''),
+      });
+  }, [product.id]);
+
   return (
     <div className="w-[90%] mx-auto">
       <Carousel opts={{
@@ -77,6 +66,9 @@ export default function ProductReview({ product }: { product: IProduct }) {
                 <h2 className="font-medium text-xl mt-1">{item.name}</h2>
                 <p className="font-medium text-sm mt-2">{item.desc}</p>
               </div>
+              <h2 className="font-medium text-xl mt-3">{item.userName}</h2>
+              <p className="font-medium text-sm mt-2 line-clamp-2">{item.comment}</p>
+              <p className="text-primary/60 text-sm mt-2"> {format(new Date(item.createdAt), "dd MMM yyyy")}</p>
             </CarouselItem>
           ))}
         </CarouselContent>

@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { apiService } from "@/common/services";
 import { IProduct } from "@/common/models/interface";
 import Hero from "./_components/hero";
 import ProductReview from "./_components/review";
-import RecentTest from "../../(home)/_components/recent-test";
 import LifeExpectency from "./_components/life-expectency";
-import Comparison from "./_components/comparison";
-import WhyApollo from "../../(home)/_components/why-apollo";
-import { Separator } from "@/components/ui/separator";
 import JournalGuide from "./_components/journal-guide";
+import WhatsThink from "./_components/whats-think";
+import FeelFree from "./_components/feel-free";
+import ApolloIndex from "./_components/apollo-index";
 import TabsSwitch from "./_components/tab-switch";
+import { Separator } from "@/components/ui/separator";
 
 export default function ProductDetailPage() {
   const params = useParams(); // Get slug from route
@@ -53,11 +53,7 @@ export default function ProductDetailPage() {
   }
 
   if (!product) {
-    return (
-      <div className="h-[60vh] flex justify-center items-center text-xl text-red-500">
-        Product not found
-      </div>
-    );
+    return notFound();
   }
 
   return (
@@ -65,12 +61,12 @@ export default function ProductDetailPage() {
       <Hero product={product} />
       <Separator className="mb-8 md:mb-12 mt-4 md:mt-8" />
       <TabsSwitch />
-      <RecentTest />
+      <WhatsThink />
       <ProductReview product={product} />
       <LifeExpectency product={product} />
-      <Comparison product={product} />
-      <Separator className="mb-8 md:mb-12 mt-4 md:mt-8" />
-      <WhyApollo />
+      <ApolloIndex product={product} />
+      {/* <Comparison product={product} /> */}
+      <FeelFree />
       <JournalGuide product={product} />
     </main>
   );

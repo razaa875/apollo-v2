@@ -1,30 +1,3 @@
-<svg width="74" height="72" viewBox="0 0 74 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="37.4999" cy="36.5001" r="15" transform="rotate(-40.2696 37.4999 36.5001)" stroke="#1D1D1D" stroke-opacity="0.4"/>
-<circle cx="37.184" cy="36.4738" r="4.94203" transform="rotate(-40.2696 37.184 36.4738)" fill="url(#paint0_radial_40000951_6612)"/>
-<circle cx="37.4731" cy="36.8166" r="4.94203" transform="rotate(-40.2696 37.4731 36.8166)" fill="url(#paint1_radial_40000951_6612)"/>
-<circle cx="37.184" cy="36.4738" r="4.94203" transform="rotate(-40.2696 37.184 36.4738)" fill="url(#paint2_radial_40000951_6612)"/>
-<circle cx="38.1586" cy="36.236" r="4.94203" transform="rotate(-40.2696 38.1586 36.236)" fill="url(#paint3_radial_40000951_6612)"/>
-<circle cx="37.5" cy="36.5" r="21.5" fill="url(#paint4_radial_40000951_6612)"/>
-<defs>
-<radialGradient id="paint0_radial_40000951_6612" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(38.2184 32.2214) rotate(96.4188) scale(9.25247 8.66648)">
-<stop offset="0.45539" stop-color="#83DB56"/>
-<stop offset="0.857831" stop-color="#3E9A30"/>
-</radialGradient>
-<radialGradient id="paint1_radial_40000951_6612" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(38.5075 32.5642) rotate(96.4188) scale(9.25247 8.66648)">
-<stop offset="0.45539" stop-color="#D0CFCF"/>
-<stop offset="0.857831" stop-color="#A3A09D"/>
-</radialGradient>
-<radialGradient id="paint2_radial_40000951_6612" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(38.2184 32.2214) rotate(96.4188) scale(9.25247 8.66648)">
-<stop offset="0.45539" stop-color="#EA3C26"/>
-<stop offset="0.857831" stop-color="#D32F1B"/>
-</radialGradient>
-<radialGradient id="paint3_radial_40000951_6612" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(39.193 31.9836) rotate(96.4188) scale(9.25247 8.66648)">
-<stop offset="0.45539" stop-color="#4AA7E3"/>
-<stop offset="0.857831" stop-color="#3480BC"/>
-</radialGradient>
-<radialGradient id="paint4_radial_40000951_6612" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(42 18) rotate(96.4188) scale(40.2523 37.703)">
-<stop offset="0.45539" stop-color="#F9B914"/>
-<stop offset="0.857831" stop-color="#BD8515"/>
-</radialGradient>
-</defs>
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M27.8064 3.50683C30.9729 5.95734 33.0206 9.80541 33.0206 14.1512C33.0206 16.9272 32.2053 19.4735 30.8022 21.5985C28.7544 24.6617 25.5121 26.825 21.7389 27.3802C21.0942 27.4951 20.4306 27.5525 19.748 27.5525C19.0654 27.5525 18.4018 27.4951 17.7571 27.3802C13.9839 26.825 10.7415 24.6617 8.69375 21.5985C7.29064 19.4735 6.47532 16.9272 6.47532 14.1512C6.47532 6.74227 12.4101 0.75 19.748 0.75M37.2889 32.282L34.1603 33.0286C33.4588 33.2009 32.9089 33.737 32.7572 34.4453L32.0936 37.2596C31.7333 38.7911 29.7993 39.2506 28.7944 38.0445L19.75 27.5532L10.7056 38.0636C9.70068 39.2698 7.76666 38.8103 7.4064 37.2787L6.74277 34.4645C6.57212 33.7561 6.02226 33.2009 5.33966 33.0477L2.2111 32.3011C0.770073 31.9565 0.258127 30.1378 1.30098 29.0848L8.69575 21.6184C10.7435 24.6815 13.9859 26.8449 17.7591 27.4001C18.4038 27.5149 19.0674 27.5724 19.75 27.5724C20.4326 27.5724 21.0962 27.5149 21.7409 27.4001C25.5141 26.8449 28.7565 24.6815 30.8042 21.6184L38.199 29.0848C39.2419 30.1186 38.7299 31.9374 37.2889 32.282ZM20.8514 8.36957L21.9701 10.6286C22.1218 10.9349 22.52 11.2413 22.8802 11.2987L24.9091 11.6433C26.1984 11.8539 26.5018 12.8111 25.5727 13.7492L23.9989 15.3382C23.7335 15.6062 23.5818 16.1231 23.6766 16.506L24.1317 18.4779C24.4919 20.0286 23.6766 20.6413 22.3114 19.8181L20.4153 18.6885C20.074 18.4779 19.5052 18.4779 19.1639 18.6885L17.2678 19.8181C15.9026 20.6221 15.0872 20.0286 15.4475 18.4779L15.9026 16.506C15.9785 16.1423 15.8457 15.6062 15.5802 15.3382L14.0065 13.7492C13.0774 12.8111 13.3808 11.873 14.6701 11.6433L16.699 11.2987C17.0403 11.2413 17.4385 10.9349 17.5901 10.6286L18.7088 8.36957C19.2587 7.14431 20.2447 7.14431 20.8514 8.36957Z" stroke="#0A0C10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
