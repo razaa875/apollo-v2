@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
-import { Plus, Star } from "lucide-react";
+import { ArrowUpRight, Star } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -15,11 +19,15 @@ import { apiService } from "@/common/services";
 
 import { ICategories, IProductByCategory } from "@/common/models/interface";
 import { useCart } from "@/providers/cart";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers";
 
 export default function BrandProduct() {
+  const router = useRouter();
+  const { addItem, cart } = useCart();
+  const { isAuthenticated } = useAuth();
 
-  const {addItem} = useCart();
-  
   const [categories, setCategories] = useState<ICategories[]>([]);
   const [products, setProducts] = useState<IProductByCategory[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("");
@@ -32,41 +40,47 @@ export default function BrandProduct() {
   const fetchProductByCategory = (id: number) => {
     setLoading(true);
 
-    apiService.httpGetRequest<{ status: string; data: IProductByCategory[] }>(`categories/${id}/products`).subscribe({
-      next: (res) => {
-        if (res.status === "success") {
-          setProducts(res.data);
+    apiService
+      .httpGetRequest<{ status: string; data: IProductByCategory[] }>(
+        `categories/${id}/products`
+      )
+      .subscribe({
+        next: (res) => {
+          if (res.status === "success") {
+            setProducts(res.data);
+            setLoading(false);
+          }
+        },
+        error: (err) => {
+          console.log(err.message);
           setLoading(false);
-        }
-      },
-      error: (err) => {
-        console.log(err.message);
-        setLoading(false);
-      },
-    });
-  }
+        },
+      });
+  };
 
   useEffect(() => {
     setHydrated(true);
     setLoadingCategories(true);
 
-    apiService.httpGetRequest<{ status: string; data: ICategories[] }>('categories').subscribe({
-      next: (res) => {
-        if (res.status === "success") {
-          setCategories(res.data);
-          if (res.data.length > 0) {
-            const firstCategory = res.data[0];
-            setActiveCategory(String(firstCategory.id));
-            fetchProductByCategory(firstCategory.id);
+    apiService
+      .httpGetRequest<{ status: string; data: ICategories[] }>("categories")
+      .subscribe({
+        next: (res) => {
+          if (res.status === "success") {
+            setCategories(res.data);
+            if (res.data.length > 0) {
+              const firstCategory = res.data[0];
+              setActiveCategory(String(firstCategory.id));
+              fetchProductByCategory(firstCategory.id);
+            }
           }
-        }
-        setLoadingCategories(false);
-      },
-      error: (err) => {
-        console.log(err.message);
-        setLoadingCategories(false);
-      },
-    });
+          setLoadingCategories(false);
+        },
+        error: (err) => {
+          console.log(err.message);
+          setLoadingCategories(false);
+        },
+      });
   }, []);
 
   if (!hydrated) {
@@ -92,222 +106,294 @@ export default function BrandProduct() {
         Brands And Products
       </h2>
       <div className="w-[90%] mx-auto mt-4 md:mt-8 lg:mt-16">
-        {
-          isDesktop ?
-            <div className="flex justify-between">
-              <div className="w-[26%]">
-                <h3 className="text-xl xl:text-2xl font-medium mb-4">Shop By Activity</h3>
-                {loadingCategories ? (
-                  <div className="flex flex-col gap-3">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Skeleton key={i} className="h-32 xl:h-40 w-full rounded-xl" />
-                    ))}
-                  </div>
-                ) : (
-                  <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4">
-                    <Tabs
-                      orientation="vertical"
-                      value={activeCategory}
-                      onValueChange={(val) => {
-                        setActiveCategory(val);
-                        fetchProductByCategory(Number(val));
-                      }}
-                    >
-                      <TabsList className="flex flex-col gap-3 size-full bg-transparent p-0">
-                        {categories.map((cat) => (
-                          <TabsTrigger
-                            key={cat.id}
-                            value={String(cat.id)}
-                            className="relative group overflow-hidden rounded-xl p-0 w-full"
-                          >
-                            <div className="w-full h-32 xl:h-40">
-                              <Image
-                                src={"/images/home/product.webp"}
-                                alt={cat.title}
-                                width={300}
-                                height={120}
-                                priority
-                                className="size-full object-cover rounded-xl"
-                              />
-                            </div>
-                            <span className="absolute bottom-4 left-4 font-medium text-white text-base z-10">
-                              {cat.title}
-                            </span>
-                            <div className="absolute inset-0 size-full bg-gradient-to-b to-primary from-primary/10"></div>
-                          </TabsTrigger>
-                        ))}
-                      </TabsList>
-                    </Tabs>
-                  </ScrollArea>
-                )}
-
-              </div>
-
-              <div className="w-[70%]">
-                <h3 className="text-xl xl:text-2xl font-medium mb-4">
-                  {
-                    categories.find((c) => String(c.id) === activeCategory)
-                      ?.title || "Products"
-                  }
-                </h3>
-
-                {loading ? (
-                  <div className="grid grid-cols-2 xl:grid-cols-3 gap-8">
-                    {Array.from({ length: 6 }).map((_, i) => (
-                      <div key={i} className="flex flex-col gap-3">
-                        <Skeleton className="h-48 w-full rounded-xl" />
-                        <Skeleton className="h-4 w-3/4" />
-                        <Skeleton className="h-4 w-1/2" />
-                      </div>
-                    ))}
-                  </div>
-                ) : products.length > 0 ? (
-                  <ScrollArea className="h-120 pr-4">
-                    <div className="grid grid-cols-2 xl:grid-cols-3 gap-8">
-                      {products.map((product) => (
-                        <div
-                          key={product.id}
-                          className=""
-                        >
-                          <div className="w-full h-50">
-                            <Image
-                              src={product.image || '/images/no-data/no-data.svg'}
-                              alt={product.title}
-                              height={200}
-                              width={400}
-                              loading="lazy"
-                              className="size-full object-cover rounded-[20px] drop-shadow-xl mb-4"
-                            />
-                          </div>
-                          <h4 className="text-xl xl:text-lg font-semibold line-clamp-1 mb-1">
-                            {product.title} <Plus size={22} onClick={() => addItem(product)}/>
-                          </h4>
-                          <div className="flex items-center justify-between">
-                            <p className="font-medium text-lg xl:text-base text-primary/60">${product.price}</p>
-                            {/* Rating */}
-                            <div className="flex items-center gap-1 text-yellow-500">
-                              <Star
-                                size={16}
-                                fill="#eab308"
-                                stroke="#eab308"
-                              />
-                              <span className="text-gray-500 xl:text-sm">
-                                {product.rating}
-                              </span>
-                              <span className="text-gray-400 text-sm xl:text-xs ml-1">
-                                ({product.reviews})
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                ) : (
-                  <div className="bg-[url('/images/no-data/no-data-bg.webp')] bg-no-repeat bg-cover flex flex-col items-center justify-center gap-y-8 py-8 h-120 lg:h-122 xl:h-100 2xl:h-120 rounded-[20px] drop-shadow-2xl">
-                    <h3 className="font-medium text-3xl text-white text-center">No Product Found</h3>
-                    <Image src="/images/no-data/no-data.svg" alt="No Data Image" title="No Data Image" height={566} width={566} className="size-60 mx-auto object-contain" />
-                  </div>
-                )}
-              </div>
-            </div>
-            :
-            <Tabs
-              value={activeCategory}
-              onValueChange={(val) => {
-                setActiveCategory(val);
-                fetchProductByCategory(Number(val));
-              }}
-            >
+        {isDesktop ? (
+          <div className="flex justify-between">
+            <div className="w-[26%]">
+              <h3 className="text-xl xl:text-2xl font-medium mb-4">
+                Shop By Activity
+              </h3>
               {loadingCategories ? (
-                <div className="flex gap-3 my-4 overflow-x-auto">
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <Skeleton key={i} className="h-10 w-24 rounded-xl" />
+                <div className="flex flex-col gap-3">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Skeleton
+                      key={i}
+                      className="h-32 xl:h-40 w-full rounded-xl"
+                    />
                   ))}
                 </div>
               ) : (
-                <TabsList className="h-10 md:h-13 flex gap-x-2 overflow-x-auto justify-start w-full my-4">
-                  {categories.map((cat) => (
-                    <TabsTrigger
-                      key={cat.id}
-                      value={String(cat.id)}
-                      className="whitespace-nowrap text-sm py-4 md:px-8 font-medium data-[state=active]:bg-primary data-[state=active]:text-white"
-                    >
-                      {cat.title}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-              )}
-
-              {
-                loading ?
-                  <div className="flex flex-col gap-6 mt-6 items-center">
-                    <Skeleton className="h-56 w-[90%] rounded-xl" />
-                    <div className="w-[90%] flex flex-col gap-2">
-                      <Skeleton className="h-4 w-2/3" />
-                      <Skeleton className="h-4 w-1/3" />
-                    </div>
-                  </div>
-                  :
-                  <>
-                    {categories.map((cat) => (
-                      <TabsContent key={cat.id} value={String(cat.id)}>
-                        {products.length > 0 ? (
-                          <Carousel>
-                            <CarouselContent>
-                              {products.map((product) => (
-                                <CarouselItem
-                                  key={product.id}
-                                  className="basis-full sm:basis-1/2 lg:basis-1/4"
-                                >
-                                  <div className="flex flex-col">
-                                    <div className="h-84 w-full">
-                                      <Image
-                                        src={product.image}
-                                        alt={product.title}
-                                        height={200}
-                                        width={400}
-                                        className="size-full object-cover rounded-[20px] mb-3 drop-shadow-md"
-                                      />
-                                    </div>
-                                    <h3 className="text-lg md:text-xl font-semibold md:mt-2 line-clamp-1">
-                                      {product.title}
-                                    </h3>
-                                    <div className="flex items-center justify-between mt-1 md:mt-3">
-                                      <p className="font-medium">
-                                        ${product.price}
-                                      </p>
-                                      <div className="flex items-center gap-1 text-sm text-yellow-500">
-                                        <Star
-                                          size={16}
-                                          fill="#eab308"
-                                          stroke="#eab308"
-                                        />
-                                        <span className="text-gray-700">
-                                          {product.rating}
-                                        </span>
-                                        <span className="text-gray-400 text-xs ml-1 capitalize">
-                                          ({product.reviews})
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </CarouselItem>
-                              ))}
-                            </CarouselContent>
-                          </Carousel>
-                        ) : (
-                          <div className="bg-[url('/images/no-data/no-data-bg.webp')] bg-no-repeat bg-cover flex flex-col items-center justify-center gap-y-8 py-8 h-100 rounded-[20px] drop-shadow-2xl">
-                            <h3 className="font-medium text-3xl text-white text-center">No Product Found</h3>
-                            <Image src="/images/no-data/no-data.svg" alt="No Data Image" title="No Data Image" height={566} width={566} className="size-60 mx-auto object-contain" />
+                <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4">
+                  <Tabs
+                    orientation="vertical"
+                    value={activeCategory}
+                    onValueChange={(val) => {
+                      setActiveCategory(val);
+                      fetchProductByCategory(Number(val));
+                    }}
+                  >
+                    <TabsList className="flex flex-col gap-3 size-full bg-transparent p-0">
+                      {categories.map((cat) => (
+                        <TabsTrigger
+                          key={cat.id}
+                          value={String(cat.id)}
+                          className="relative group overflow-hidden rounded-xl p-0 w-full"
+                        >
+                          <div className="w-full h-32 xl:h-40">
+                            <Image
+                              src={"/images/home/product.webp"}
+                              alt={cat.title}
+                              width={300}
+                              height={120}
+                              priority
+                              className="size-full object-cover rounded-xl"
+                            />
                           </div>
-                        )}
-                      </TabsContent>
+                          <span className="absolute bottom-4 left-4 font-medium text-white text-base z-10">
+                            {cat.title}
+                          </span>
+                          <div className="absolute inset-0 size-full bg-gradient-to-b to-primary from-primary/10"></div>
+                        </TabsTrigger>
+                      ))}
+                    </TabsList>
+                  </Tabs>
+                </ScrollArea>
+              )}
+            </div>
+
+            <div className="w-[70%]">
+              <h3 className="text-xl xl:text-2xl font-medium mb-4">
+                {categories.find((c) => String(c.id) === activeCategory)
+                  ?.title || "Products"}
+              </h3>
+
+              {loading ? (
+                <div className="grid grid-cols-2 xl:grid-cols-3 gap-8">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="flex flex-col gap-3">
+                      <Skeleton className="h-48 w-full rounded-xl" />
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-4 w-1/2" />
+                    </div>
+                  ))}
+                </div>
+              ) : products.length > 0 ? (
+                <ScrollArea className="h-120 pr-4">
+                  <div className="grid grid-cols-2 xl:grid-cols-3 gap-8">
+                    {products.map((product) => (
+                      <div key={product.id} className="">
+                        <div className="w-full h-50 mb-4">
+                          <Image
+                            src={product.image || "/images/no-data/no-data.svg"}
+                            alt={product.title}
+                            height={200}
+                            width={400}
+                            loading="lazy"
+                            className="size-full object-cover rounded-[20px] drop-shadow-xl"
+                          />
+                        </div>
+                        {/* <Plus size={22} onClick={() => addItem(product)}/> */}
+                        <h4 className="text-xl xl:text-lg font-semibold mb-1">
+                          {product.title}
+                        </h4>
+                        <div className="flex items-center justify-between">
+                          <p className="font-medium text-lg xl:text-base text-primary/60">
+                            ${product.price}
+                          </p>
+                          {/* Rating */}
+                          <div className="flex items-center gap-1 text-yellow-500">
+                            <Star size={16} fill="#eab308" stroke="#eab308" />
+                            <span className="text-gray-500 xl:text-sm">
+                              {product.rating}
+                            </span>
+                            <span className="text-gray-400 text-sm xl:text-xs ml-1">
+                              ({product.reviews})
+                            </span>
+                          </div>
+                        </div>
+                        {/* <div className="flex gap-4 mt-2 xl:mt-6"> */}
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => {
+                            const existingItem = cart[product.id];
+                            if (existingItem) {
+                              // Already in cart, redirect without toast
+                              if (isAuthenticated) {
+                                router.push("/cart");
+                              } else {
+                                router.push("/login");
+                              }
+                            } else {
+                              // Add to cart and redirect
+                              addItem(product, false);
+                              router.push("/cart");
+                            }
+                          }}
+                          className="rounded-xl border-white hover:border-white hover:bg-transparent border-2 text-sm shadow-lg hover:shadow-lg w-full py-6 mt-4 lg:mt-6"
+                        >
+                          Add To Cart <ArrowUpRight className="size-4" />
+                        </Button>
+                        {/* <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={() => {
+                              addItem(product, true); // Add to cart
+                              // router.push("/cart"); // Redirect to cart page
+                            }}
+                            className="rounded-xl border-white hover:border-white hover:bg-transparent border-2 shadow-lg hover:shadow-lg py-6"
+                          >
+                            <ShoppingCart />
+                          </Button> */}
+                        {/* </div> */}
+                      </div>
                     ))}
-                  </>
-              }
-            </Tabs>
-        }
+                  </div>
+                </ScrollArea>
+              ) : (
+                <div className="bg-[url('/images/no-data/no-data-bg.webp')] bg-no-repeat bg-cover flex flex-col items-center justify-center gap-y-8 py-8 h-120 lg:h-122 xl:h-100 2xl:h-120 rounded-[20px] drop-shadow-2xl">
+                  <h3 className="font-medium text-3xl text-white text-center">
+                    No Product Found
+                  </h3>
+                  <Image
+                    src="/images/no-data/no-data.svg"
+                    alt="No Data Image"
+                    title="No Data Image"
+                    height={566}
+                    width={566}
+                    className="size-60 mx-auto object-contain"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <Tabs
+            value={activeCategory}
+            onValueChange={(val) => {
+              setActiveCategory(val);
+              fetchProductByCategory(Number(val));
+            }}
+          >
+            {loadingCategories ? (
+              <div className="flex gap-3 my-4 overflow-x-auto">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <Skeleton key={i} className="h-10 w-24 rounded-xl" />
+                ))}
+              </div>
+            ) : (
+              <TabsList className="h-10 md:h-13 flex gap-x-2 overflow-x-auto justify-start w-full my-4">
+                {categories.map((cat) => (
+                  <TabsTrigger
+                    key={cat.id}
+                    value={String(cat.id)}
+                    className="whitespace-nowrap text-sm py-4 md:px-8 font-medium data-[state=active]:bg-primary data-[state=active]:text-white"
+                  >
+                    {cat.title}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            )}
+
+            {loading ? (
+              <div className="flex flex-col gap-6 mt-6 items-center">
+                <Skeleton className="h-56 w-[90%] rounded-xl" />
+                <div className="w-[90%] flex flex-col gap-2">
+                  <Skeleton className="h-4 w-2/3" />
+                  <Skeleton className="h-4 w-1/3" />
+                </div>
+              </div>
+            ) : (
+              <>
+                {categories.map((cat) => (
+                  <TabsContent key={cat.id} value={String(cat.id)}>
+                    {products.length > 0 ? (
+                      <Carousel>
+                        <CarouselContent>
+                          {products.map((product) => (
+                            <CarouselItem
+                              key={product.id}
+                              className="basis-full sm:basis-1/2 lg:basis-1/4"
+                            >
+                              <div className="flex flex-col">
+                                <div className="h-84 w-full">
+                                  <Image
+                                    src={product.image}
+                                    alt={product.title}
+                                    height={200}
+                                    width={400}
+                                    className="size-full object-cover rounded-[20px] mb-3 drop-shadow-md"
+                                  />
+                                </div>
+                                <h3 className="text-lg md:text-xl font-semibold md:mt-2 line-clamp-1">
+                                  {product.title}
+                                </h3>
+                                <div className="flex items-center justify-between mt-1 md:mt-3">
+                                  <p className="font-medium">
+                                    ${product.price}
+                                  </p>
+                                  <div className="flex items-center gap-1 text-sm text-yellow-500">
+                                    <Star
+                                      size={16}
+                                      fill="#eab308"
+                                      stroke="#eab308"
+                                    />
+                                    <span className="text-gray-700">
+                                      {product.rating}
+                                    </span>
+                                    <span className="text-gray-400 text-xs ml-1 capitalize">
+                                      ({product.reviews})
+                                    </span>
+                                  </div>
+                                </div>
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  onClick={() => {
+                                    const existingItem = cart[product.id];
+                                    if (existingItem) {
+                                      // Already in cart, redirect without toast
+                                      if (isAuthenticated) {
+                                        router.push("/cart");
+                                      } else {
+                                        router.push("/login");
+                                      }
+                                    } else {
+                                      // Add to cart and redirect
+                                      addItem(product, false);
+                                      router.push("/cart");
+                                    }
+                                  }}
+                                  className="rounded-xl border-white hover:border-white hover:bg-transparent border-2 text-sm shadow-lg hover:shadow-lg w-full py-6 mt-4 lg:mt-6"
+                                >
+                                  Add To Cart{" "}
+                                  <ArrowUpRight className="size-4" />
+                                </Button>
+                              </div>
+                            </CarouselItem>
+                          ))}
+                        </CarouselContent>
+                      </Carousel>
+                    ) : (
+                      <div className="bg-[url('/images/no-data/no-data-bg.webp')] bg-no-repeat bg-cover flex flex-col items-center justify-center gap-y-8 py-8 h-100 rounded-[20px] drop-shadow-2xl">
+                        <h3 className="font-medium text-3xl text-white text-center">
+                          No Product Found
+                        </h3>
+                        <Image
+                          src="/images/no-data/no-data.svg"
+                          alt="No Data Image"
+                          title="No Data Image"
+                          height={566}
+                          width={566}
+                          className="size-60 mx-auto object-contain"
+                        />
+                      </div>
+                    )}
+                  </TabsContent>
+                ))}
+              </>
+            )}
+          </Tabs>
+        )}
       </div>
     </>
   );
