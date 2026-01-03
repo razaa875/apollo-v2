@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+// import { Button } from "@/components/ui/button";
+// import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 interface IFeedCreatorsAstros {
@@ -131,14 +131,38 @@ const data = [
         person: "Jeannie Kerluke",
         avatar: "/images/oasis/creator-4.webp"
     },
+    {
+        title: "Jeannie Kerluke",
+        image: "/images/oasis/feed-creator-8.webp",
+        person: "Jeannie Kerluke",
+        avatar: "/images/oasis/creator-4.webp"
+    },
+    {
+        title: "Rodolfo Kozey",
+        image: "/images/oasis/feed-creator-9.webp",
+        person: "Rodolfo Kozey",
+        avatar: "/images/oasis/creator-3.webp"
+    },
+    {
+        title: "Jeannie Kerluke",
+        image: "/images/oasis/feed-creator-10.webp",
+        person: "Jeannie Kerluke",
+        avatar: "/images/oasis/creator-4.webp"
+    },
+    {
+        title: "Jeannie Kerluke",
+        image: "/images/oasis/feed-creator-10.webp",
+        person: "Jeannie Kerluke",
+        avatar: "/images/oasis/creator-4.webp"
+    },
 ]
 
 const MasonryGrid = ({ data }: { data: IFeedCreatorsAstros[] }) => {
     return (
-        <div className="columns-1 md:columns-4 lg:columns-4 xl:columns-5 gap-4">
+        <div className="columns-2 md:columns-4 lg:columns-4 xl:columns-5 2xl:columns-6 gap-4">
             {data.map((item, index) => (
                 <div key={index} className="break-inside-avoid">
-                    <div className="h-60 md:h-auto  rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+                    <div className="h-auto rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
                         <Image
                             src={item.image}
                             alt={item.title}
@@ -168,9 +192,9 @@ export default function FeedCreatorsAstros() {
             <div className="mt-12">
                 <MasonryGrid data={data} />
             </div>
-            <div className="flex items-center justify-center mt-8">
+            {/* <div className="flex items-center justify-center mt-8">
                 <Button variant="outline" fullWidth className="w-[35%] mx-auto">See More <ArrowRight /></Button>
-            </div>
+            </div> */}
         </section>
     )
 }

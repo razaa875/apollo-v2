@@ -94,6 +94,7 @@ export interface IProduct {
   price: string;
   sale_price: string;
   image: string;
+  image_urls: string[];
   link: string;
   rating: string;
   reviews: string;

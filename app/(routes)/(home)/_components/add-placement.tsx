@@ -83,7 +83,7 @@ export default function AddPlacement() {
 
       {
         isDesktop &&
-        <div className="absolute right-12 xl:right-28 -bottom-26 2xl:-bottom-30 z-10 -rotate-15">
+        <div className="absolute right-12 xl:right-28 2xl:right-1/5 -bottom-26 2xl:-bottom-1/6 z-10 -rotate-15">
           <Image
             src="/images/dashboard/spaceman5.webp"
             width={250}

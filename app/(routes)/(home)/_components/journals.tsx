@@ -60,7 +60,7 @@ export default function Journals() {
           {cards.map((item, i) => (
             <CarouselItem
               key={i}
-              className="basis-full md:basis-[40%] xl:basis-1/3"
+              className="basis-full md:basis-[40%] xl:basis-1/3 2xl:basis-1/4"
             >
               <Card className="w-full border-none shadow-none bg-transparent pt-0 gap-5 cursor-pointer">
                 <CardContent className="p-0 relative group overflow-hidden rounded-2xl shadow-lg">

@@ -28,6 +28,10 @@ export const Header = () => {
         initializeWithValue: true,
     });
 
+    const is2XLScreen = useMediaQuery("(min-width: 2000px)", {
+        initializeWithValue: true,
+    });
+
     const [hydrated, setHydrated] = useState(false);
     const [open, setOpen] = useState(false);
     const [userOpen, setUserOpen] = useState(false);
@@ -75,7 +79,8 @@ export const Header = () => {
                             <motion.div
                                 layout
                                 animate={{
-                                    width: isShrunk ? "50%" : "93%",
+                                    // width: isShrunk ? "50%" : "93%",
+                                    maxWidth: isShrunk ? (isDesktop ? (is2XLScreen ? "35%" : "50%") : "35%") : (isDesktop ? (is2XLScreen ? "55%" : "75%") : "93%"),
                                 }}
                                 transition={{
                                     type: "spring",
@@ -102,7 +107,7 @@ export const Header = () => {
                                             <Link className="relative hover:text-[#2C2C2CCC] after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 py-1.5 after:w-0 after:bg-[#2C2C2CCC] after:transition-all after:duration-300 hover:after:w-full" href="/" title="Home">Home</Link>
                                             <Link className="relative hover:text-[#2C2C2CCC] after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 py-1.5 after:w-0 after:bg-[#2C2C2CCC] after:transition-all after:duration-300 hover:after:w-full" href="/oasis" title="Oasis">Oasis</Link>
                                             <Link className="relative hover:text-[#2C2C2CCC] after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 py-1.5 after:w-0 after:bg-[#2C2C2CCC] after:transition-all after:duration-300 hover:after:w-full" href="/explore" title="Explore">Explore</Link>
-                                            <Link className="relative hover:text-[#2C2C2CCC] after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 py-1.5 after:w-0 after:bg-[#2C2C2CCC] after:transition-all after:duration-300 hover:after:w-full" href="/about" title="About">About</Link>
+                                            {/* <Link className="relative hover:text-[#2C2C2CCC] after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 py-1.5 after:w-0 after:bg-[#2C2C2CCC] after:transition-all after:duration-300 hover:after:w-full" href="/about" title="About">About</Link> */}
                                             <Link className="relative hover:text-[#2C2C2CCC] after:absolute after:left-0 after:-bottom-0.5 after:h-0.5 py-1.5 after:w-0 after:bg-[#2C2C2CCC] after:transition-all after:duration-300 hover:after:w-full" href="/live-commerce" title="Live Commerce">Live Commerce</Link>
                                         </div>
                                     )}

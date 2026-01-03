@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function ProfileHero() {
     return (
-        <section className="w-[90%] mx-auto mt-8 mb-8 lg:mb-16">
+        <section className="w-[90%] mx-auto pt-36 mb-8 lg:mb-16">
             <h1 className="font-medium text-4xl lg:text-6xl text-center mb-16">What in the world?</h1>
             <div className="flex flex-col lg:flex-row-reverse gap-8">
                 <Image src="/images/profile/cash.webp" alt="Apollo Cash" title="Apollo Cash" height={621} width={793} className="w-full lg:w-[48%] h-full lg:h-100 2xl:h-120 object-cover rounded-xl" />

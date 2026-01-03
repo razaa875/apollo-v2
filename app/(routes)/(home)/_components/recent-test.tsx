@@ -109,7 +109,7 @@ export default function RecentTest() {
 
         {
           isDesktop &&
-          <div className="absolute right-28 xl:right-36 2xl:right-44 top-20 rotate-6">
+          <div className="absolute right-28 xl:right-36 2xl:right-1/5 top-20 2xl:-top-1/7 rotate-6">
             <Image
               src="/images/dashboard/spaceman3.webp"
               width={250}
@@ -121,7 +121,7 @@ export default function RecentTest() {
         }
         {
           isDesktop &&
-          <div className="absolute right-8 xl:right-28 -bottom-40 xl:-bottom-48 z-10">
+          <div className="absolute right-8 xl:right-28 -bottom-40 xl:-bottom-48 2xl:-bottom-56 z-10">
             <Image
               src="/images/dashboard/spaceman4.webp"
               width={250}
@@ -131,12 +131,12 @@ export default function RecentTest() {
             />
           </div>
         }
-        <Carousel className="w-[90%] mx-auto md:mr-0 md:ml-auto">
+        <Carousel className="w-[90%] 2xl:w-[95%] mx-auto md:mr-0 md:ml-auto">
           <CarouselContent>
             {videoUrl.map((item) => (
               <CarouselItem
                 key={item.id}
-                className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%] xl:mr-3"
+                className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%] 2xl:basis-[17.5%] xl:mr-3"
               >
                 <Card className="w-full border-none shadow-none bg-transparent pt-0 gap-5">
                   <CardContent className="p-0 relative group overflow-hidden rounded-2xl shadow-lg">
@@ -181,7 +181,7 @@ export default function RecentTest() {
                     <p className="text-start text-sm font-normal text-black/50">
                       {item.user}
                     </p>
-                    <p className="text-start text-xl font-medium">
+                    <p className="text-start text-xl 2xl:text-lg font-medium">
                       {item.topic}
                     </p>
                   </CardFooter>

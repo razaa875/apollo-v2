@@ -26,6 +26,11 @@ import Image from "next/image";
     "/images/oasis/featured-3.webp",
     "/images/oasis/featured-4.webp",
     "/images/oasis/featured-1.webp",
+    "/images/oasis/featured-2.webp",
+    "/images/oasis/featured-3.webp",
+    "/images/oasis/featured-4.webp",
+    "/images/oasis/featured-3.webp",
+    "/images/oasis/featured-4.webp",
   ];
 
 interface MasonryGridProps {
@@ -34,9 +39,9 @@ interface MasonryGridProps {
 
 const MasonryGrid = ({ images }: MasonryGridProps) => {
     return (
-        <div className="columns-1 md:columns-4 lg:columns-4 xl:columns-5 gap-4 min-h-screen">
+        <div className="columns-2 md:columns-4 lg:columns-4 xl:columns-5 2xl:columns-6 gap-4 min-h-screen">
             {images.map((img, index) => (
-                <div key={index} className="mb-4 h-60 md:h-auto break-inside-avoid rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
+                <div key={index} className="mb-4 h-auto break-inside-avoid rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
                     <Image
                         src={img}
                         alt={`pinterest-${index}`}

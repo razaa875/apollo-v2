@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
-import { Plus, Star } from "lucide-react";
+import { Plus, ShoppingCart, Star } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -15,11 +15,17 @@ import { apiService } from "@/common/services";
 
 import { ICategories, IProductByCategory } from "@/common/models/interface";
 import { useCart } from "@/providers/cart";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/providers";
+import Link from "next/link";
 
 export default function BrandProduct() {
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
+  const { addItem } = useCart();
 
-  const {addItem} = useCart();
-  
   const [categories, setCategories] = useState<ICategories[]>([]);
   const [products, setProducts] = useState<IProductByCategory[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("");
@@ -95,7 +101,7 @@ export default function BrandProduct() {
         {
           isDesktop ?
             <div className="flex justify-between">
-              <div className="w-[26%]">
+              <div className="w-[26%] 2xl:w-[20%]">
                 <h3 className="text-xl xl:text-2xl font-medium mb-4">Shop By Activity</h3>
                 {loadingCategories ? (
                   <div className="flex flex-col gap-3">
@@ -122,7 +128,7 @@ export default function BrandProduct() {
                           >
                             <div className="w-full h-32 xl:h-40">
                               <Image
-                                src={"/images/home/product.webp"}
+                                src={cat.image_url}
                                 alt={cat.title}
                                 width={300}
                                 height={120}
@@ -143,7 +149,7 @@ export default function BrandProduct() {
 
               </div>
 
-              <div className="w-[70%]">
+              <div className="w-[70%] 2xl:w-[77%]">
                 <h3 className="text-xl xl:text-2xl font-medium mb-4">
                   {
                     categories.find((c) => String(c.id) === activeCategory)
@@ -163,24 +169,23 @@ export default function BrandProduct() {
                   </div>
                 ) : products.length > 0 ? (
                   <ScrollArea className="h-120 pr-4">
-                    <div className="grid grid-cols-2 xl:grid-cols-3 gap-8">
-                      {products.map((product) => (
-                        <div
-                          key={product.id}
-                          className=""
+                    <div className="grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 2xl:gap-x-4">
+                      {products.map((product, i) => (
+                        <Link href={`/products/${product.slug}`}
+                          key={i}
                         >
-                          <div className="w-full h-50">
+                          <div className="w-full h-50 mb-4">
                             <Image
                               src={product.image || '/images/no-data/no-data.svg'}
                               alt={product.title}
                               height={200}
                               width={400}
                               loading="lazy"
-                              className="size-full object-cover rounded-[20px] drop-shadow-xl mb-4"
+                              className="size-full object-cover rounded-[20px] drop-shadow-xl"
                             />
                           </div>
-                          <h4 className="text-xl xl:text-lg font-semibold line-clamp-1 mb-1">
-                            {product.title} <Plus size={22} onClick={() => addItem(product)}/>
+                          <h4 title={product.title} className="text-xl xl:text-lg font-semibold line-clamp-1 mb-1">
+                            {product.title}
                           </h4>
                           <div className="flex items-center justify-between">
                             <p className="font-medium text-lg xl:text-base text-primary/60">${product.price}</p>
@@ -199,7 +204,31 @@ export default function BrandProduct() {
                               </span>
                             </div>
                           </div>
-                        </div>
+                          <div className="flex justify-between items-center w-full mt-4">
+                            <Button
+                              onClick={() => {
+                                if (isAuthenticated) {
+                                  addItem(product); // Add to cart
+                                  router.push("/cart"); // Redirect to cart page
+                                }
+                                else {
+                                  router.push("/login"); // Redirect to cart page
+                                }
+                              }}
+                              className="w-[77%]"
+                            >
+                              Buy Now <ShoppingCart size={22} />
+                            </Button>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button onClick={() => addItem(product)} className="w-[20%]"><Plus size={22} /></Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Add to Cart</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </div>
+                        </Link>
                       ))}
                     </div>
                   </ScrollArea>
@@ -290,6 +319,30 @@ export default function BrandProduct() {
                                           ({product.reviews})
                                         </span>
                                       </div>
+                                    </div>
+                                    <div className="flex justify-between items-center w-full mt-4">
+                                      <Button
+                                        onClick={() => {
+                                          if (isAuthenticated) {
+                                            addItem(product); // Add to cart
+                                            router.push("/cart"); // Redirect to cart page
+                                          }
+                                          else {
+                                            router.push("/login"); // Redirect to cart page
+                                          }
+                                        }}
+                                        className="w-[77%]"
+                                      >
+                                        Buy Now <ShoppingCart size={22} />
+                                      </Button>
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                          <Button onClick={() => addItem(product)} className="w-[20%]"><Plus size={22} /></Button>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                          <p>Add to Cart</p>
+                                        </TooltipContent>
+                                      </Tooltip>
                                     </div>
                                   </div>
                                 </CarouselItem>

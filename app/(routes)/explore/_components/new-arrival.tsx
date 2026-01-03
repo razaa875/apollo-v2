@@ -30,7 +30,7 @@ export default function NewArrival() {
             <h2 className="font-medium text-4xl lg:text-6xl text-center">New Arrival</h2>
             <div className="flex flex-col md:flex-row md:flex-wrap gap-y-12 gap-x-12 my-8 md:my-16 xl:my-20">
                 {data.map((product, i) => (
-                    <div key={i} className="w-full md:w-[46%] xl:w-[30%] 2xl:w-[22%]">
+                    <div key={i} className="w-full md:w-[46%] xl:w-[30%] 2xl:w-[17.5%]">
                         <div className="w-full h-64">
                             <Image
                                 src={product.image || '/images/no-data/no-data.svg'}

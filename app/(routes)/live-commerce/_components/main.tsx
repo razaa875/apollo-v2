@@ -122,16 +122,16 @@ export default function LiveCommerceMain() {
 
     return (
         <>
-            <h1 className="font-medium text-4xl lg:text-6xl text-center mt-8 mb-16 pt-28 md:pt-32">Live Commerce</h1>
-            <div className="w-[90%] mx-auto flex flex-col items-center justify-center rounded-[20px] drop-shadow-2xl px-6 py-[4%] text-center backdrop-blur-2xl border-3 border-white bg-background mb-16">
-                <h2 className="text-xl lg:text-5xl font-medium mb-4">
+            <h1 className="font-medium text-4xl lg:text-6xl text-center mb-16 pt-28 md:pt-40">Live Commerce</h1>
+            <div className="w-[90%] xl:w-[70%] mx-auto flex flex-col items-center justify-center rounded-[20px] drop-shadow-2xl px-6 py-[4%] text-center backdrop-blur-2xl border-3 border-white bg-background mb-16">
+                <h2 className="text-xl lg:text-4xl font-medium mb-4">
                     Don’t Miss Glen Powell’s Top 15 Favorite Products!
                 </h2>
 
                 <div className="flex items-center lg:gap-x-4 lg:mt-12">
                     {["days", "hours", "minutes", "seconds"].map((unit, idx) => (
                         <div key={unit} className="flex items-center lg:gap-x-4">
-                            <div className="bg-black text-white rounded-md size-12 lg:w-28 lg:h-36 flex items-center justify-center text-lg lg:text-5xl font-bold">
+                            <div className="bg-black text-white rounded-md size-12 lg:size-28 flex items-center justify-center text-lg lg:text-3xl font-bold">
                                 {formatTime(
                                     unit === "days"
                                         ? timeLeft.days
@@ -148,11 +148,11 @@ export default function LiveCommerceMain() {
                 </div>
             </div>
 
-            <div ref={containerRef} className="relative w-[90%] mx-auto rounded-[20px] overflow-hidden shadow-md bg-black/10 backdrop-blur-2xl drop-shadow-2xl">
+            <div ref={containerRef} className="relative w-[90%] xl:w-[70%] mx-auto rounded-[20px] overflow-hidden shadow-md bg-black/10 backdrop-blur-2xl drop-shadow-2xl">
                 {/* Video */}
                 <video
                     ref={videoRef}
-                    className="w-full aspect-square lg:h-150 object-cover"
+                    className="w-full aspect-square lg:h-150 2xl:h-200 object-cover"
                     poster="/images/live-commerce/poster.webp"
                     loop
                     // playsInline

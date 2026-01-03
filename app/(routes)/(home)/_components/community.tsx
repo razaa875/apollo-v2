@@ -54,7 +54,7 @@ export default function Community() {
         Explore reviews, demos, and live action.
       </p>
 
-      <Carousel className="w-[90%] mx-auto lg:mr-0 lg:ml-auto">
+      <Carousel className="w-[90%] 2xl:w-[95%] mx-auto lg:mr-0 lg:ml-auto">
         <CarouselContent>
           {/* === 5 CARDS LOOP === */}
           {[...Array(5)].map((_, idx) => (

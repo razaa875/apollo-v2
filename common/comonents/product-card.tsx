@@ -16,7 +16,7 @@ export const ProductCard = ({ data }: { data: IExploreProducts }) => {
                     width={1200}
                     height={800}
                     alt={data.title}
-                    className={`w-full h-75 object-cover object-top`}
+                    className={`w-full h-60 object-cover object-top`}
                 />
                 <div className="flex flex-col gap-2 items-center mt-4">
                     <h3 className="font-medium text-lg line-clamp-1">{data.title}</h3>
@@ -25,7 +25,7 @@ export const ProductCard = ({ data }: { data: IExploreProducts }) => {
             </CardContent>
 
             <CardFooter className="justify-between xl:px-3">
-                <Button variant="outline" size="lg" className="w-[65%] xl:w-[55%] 2xl:w-[65%] border-white hover:bg-primary/5">Add to Cart <ArrowUpRight /></Button>
+                <Button variant="outline" size="lg" className="w-[65%] xl:w-[55%] border-white hover:bg-primary/5">Add to Cart <ArrowUpRight /></Button>
                 <Button variant="ghost" size="lg" className="hover:bg-primary/5 rounded-lg"><Heart className="size-6 xl:size-4.5" /></Button>
                 <Button size="lg" className="border-white text-white rounded-lg xl:has-[>svg]:p-3"><ExternalLink className="size-5 xl:size-3.5"/></Button>
             </CardFooter>

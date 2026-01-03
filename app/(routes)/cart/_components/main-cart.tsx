@@ -5,6 +5,7 @@ import Cart from "./cart-item";
 import { SelectShippingAddress } from "./shipping-address";
 import { useForm, FormProvider } from "react-hook-form";
 import { toast } from "sonner";
+import { useAuth } from "@/providers";
 
 interface IFormSubmit {
   items: {
@@ -15,6 +16,7 @@ interface IFormSubmit {
 }
 
 export default function MainCart() {
+  const { isAuthenticated } = useAuth()
   const form = useForm({
     defaultValues: {
       items: [],
@@ -49,11 +51,14 @@ export default function MainCart() {
             <Cart />
           </div>
         </div>
-        <div className="flex justify-center">
-          <Button type="submit" className="mt-6 btn-primary">
-            Proceed to Checkout
-          </Button>
-        </div>
+        {
+          isAuthenticated &&
+          <div className="flex justify-center">
+            <Button type="submit" className="mt-6 btn-primary">
+              Proceed to Checkout
+            </Button>
+          </div>
+        }
       </form>
     </FormProvider>
   );

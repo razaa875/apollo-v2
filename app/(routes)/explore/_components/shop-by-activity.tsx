@@ -7,7 +7,6 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
 const categories = [
@@ -62,18 +61,18 @@ const categories = [
             { id: "2", title: "John Beach", image: "/images/home/product-2.webp" },
         ],
     },
-    {
-        id: "5",
-        title: "Watchers",
-        image: "/images/home/category-5.webp",
-        products: [
-            { id: "1", title: "Ryan Brooks", image: "/images/home/product-3.webp" },
-            { id: "2", title: "Anna Walker", image: "/images/home/product-1.webp" },
-            { id: "3", title: "John Beach", image: "/images/home/product-2.webp" },
-            { id: "4", title: "Anna Walker", image: "/images/home/product-1.webp" },
-            { id: "5", title: "John Beach", image: "/images/home/product-2.webp" },
-        ],
-    },
+    // {
+    //     id: "5",
+    //     title: "Watchers",
+    //     image: "/images/home/category-5.webp",
+    //     products: [
+    //         { id: "1", title: "Ryan Brooks", image: "/images/home/product-3.webp" },
+    //         { id: "2", title: "Anna Walker", image: "/images/home/product-1.webp" },
+    //         { id: "3", title: "John Beach", image: "/images/home/product-2.webp" },
+    //         { id: "4", title: "Anna Walker", image: "/images/home/product-1.webp" },
+    //         { id: "5", title: "John Beach", image: "/images/home/product-2.webp" },
+    //     ],
+    // },
 ];
 
 export default function ShopByActivity() {
@@ -106,7 +105,7 @@ export default function ShopByActivity() {
                                     Filter By Activity
                                 </h3>
 
-                                <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4">
+                                {/* <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4"> */}
                                     <Tabs
                                         orientation="vertical"
                                         value={activeCategory}
@@ -134,7 +133,7 @@ export default function ShopByActivity() {
                                             ))}
                                         </TabsList>
                                     </Tabs>
-                                </ScrollArea>
+                                {/* </ScrollArea> */}
                             </div>
 
                             {/* ✅ Main Content Grid */}
@@ -142,7 +141,7 @@ export default function ShopByActivity() {
                                 <h3 className="text-xl xl:text-2xl font-medium mb-6">
                                     {categories.find((cat) => cat.id === activeCategory)?.title}
                                 </h3>
-                                <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4">
+                                {/* <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4"> */}
                                     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
                                         {activeData.map((person, i) => (
                                             <div key={i} className="rounded-2xl overflow-hidden">
@@ -156,7 +155,7 @@ export default function ShopByActivity() {
                                             </div>
                                         ))}
                                     </div>
-                                </ScrollArea>
+                                {/* </ScrollArea> */}
                             </div>
                         </div>
                         :

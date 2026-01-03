@@ -89,12 +89,12 @@ export default function SocialUnboxing() {
                 Explore reviews, demos, and live action.
             </p>
 
-            <Carousel className="w-[90%] mx-auto md:mr-0 md:ml-auto">
+            <Carousel className="w-[90%] 2xl:w-[95%] mx-auto md:mr-0 md:ml-auto">
                 <CarouselContent>
                     {videoUrl.map((item) => (
                         <CarouselItem
                             key={item.id}
-                            className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%] xl:mr-3"
+                            className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%] 2xl:basis-[17.5%] xl:mr-3"
                         >
                             <Card className="w-full border-none shadow-none bg-transparent pt-0 gap-5">
                                 <CardContent className="p-0 relative group overflow-hidden rounded-2xl shadow-lg">

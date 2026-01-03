@@ -44,10 +44,10 @@ export default function ExploreAlternatives() {
                         ))}
                     </div>
                 ) : (
-                    <Carousel className="w-[90%] xl:w-[96%] mx-auto lg:mr-0 lg:ml-auto mt-20">
+                    <Carousel className="w-[90%] xl:w-[95%] mx-auto lg:mr-0 lg:ml-auto mt-20">
                         <CarouselContent>
                             {products.map((item, i) => (
-                                <CarouselItem key={i} className="basis-full md:basis-1/2 lg:basis-[40%] xl:basis-[22%]">
+                                <CarouselItem key={i} className="basis-full md:basis-1/2 lg:basis-[40%] xl:basis-[22%] 2xl:basis-[17.5%]">
                                     <ProductCard data={item} />
                                 </CarouselItem>
                             ))}

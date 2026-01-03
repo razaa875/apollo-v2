@@ -45,7 +45,7 @@ export default function Login() {
             .subscribe({
                 next: (res) => {
                     if (res.user?.role.toLowerCase() === "user" && res.user?.status.toLowerCase() === "enabled") {
-                        signin(res.token, res.user);
+                        signin(res.token, res.user, '/profile');
                         setIsLoading(false);
                     } else {
                         toast.error("You've been blocked by Apollo!. Please Contact Apollo Support Center in this regard.");

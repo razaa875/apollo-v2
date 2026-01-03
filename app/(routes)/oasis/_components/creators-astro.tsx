@@ -201,7 +201,7 @@ export default function CreatersAndAstros() {
                     {products.map((product, i) => (
                         <CarouselItem
                             key={i}
-                            className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%] xl:mr-3"
+                            className="basis-full md:basis-[40%] lg:basis-[30%] xl:basis-[22%] 2xl:basis-[17.5%] xl:mr-3"
                         >
                             <ProductCard
                                 mainImage={product.mainImage}

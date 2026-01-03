@@ -7,7 +7,7 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { ScrollArea } from "@/components/ui/scroll-area";
+// import { ScrollArea } from "@/components/ui/scroll-area";
 
 const categories = [
   {
@@ -52,18 +52,18 @@ const categories = [
       { id: "2", title: "John Beach", image: "/images/home/product-2.webp" },
     ],
   },
-  {
-    id: "5",
-    title: "Watchers",
-    image: "/images/home/category-5.webp",
-    products: [
-      { id: "1", title: "Ryan Brooks", image: "/images/home/product-3.webp" },
-      { id: "2", title: "Anna Walker", image: "/images/home/product-1.webp" },
-      { id: "3", title: "John Beach", image: "/images/home/product-2.webp" },
-      { id: "4", title: "Anna Walker", image: "/images/home/product-1.webp" },
-      { id: "5", title: "John Beach", image: "/images/home/product-2.webp" },
-    ],
-  },
+  // {
+  //   id: "5",
+  //   title: "Watchers",
+  //   image: "/images/home/category-5.webp",
+  //   products: [
+  //     { id: "1", title: "Ryan Brooks", image: "/images/home/product-3.webp" },
+  //     { id: "2", title: "Anna Walker", image: "/images/home/product-1.webp" },
+  //     { id: "3", title: "John Beach", image: "/images/home/product-2.webp" },
+  //     { id: "4", title: "Anna Walker", image: "/images/home/product-1.webp" },
+  //     { id: "5", title: "John Beach", image: "/images/home/product-2.webp" },
+  //   ],
+  // },
 ];
 
 export default function ApolloCreators() {
@@ -93,12 +93,12 @@ export default function ApolloCreators() {
           isDesktop ?
             <div className="flex justify-between gap-8">
               {/* ✅ Sidebar */}
-              <div className="w-[26%]">
+              <div className="w-[26%] 2xl:w-[20%]">
                 <h3 className="text-xl xl:text-2xl font-medium mb-4">
                   Filter By Activity
                 </h3>
 
-                <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4">
+                {/* <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4"> */}
                   <Tabs
                     orientation="vertical"
                     value={activeCategory}
@@ -126,16 +126,16 @@ export default function ApolloCreators() {
                       ))}
                     </TabsList>
                   </Tabs>
-                </ScrollArea>
+                {/* </ScrollArea> */}
               </div>
 
               {/* ✅ Main Content Grid */}
-              <div className="w-[70%]">
+              <div className="w-[70%] 2xl:w-[77%]">
                 <h3 className="text-xl xl:text-2xl font-medium mb-6">
                   {categories.find((cat) => cat.id === activeCategory)?.title}
                 </h3>
-                <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4">
-                  <div className="grid grid-cols-2 xl:grid-cols-3 gap-6">
+                {/* <ScrollArea className="h-123 xl:h-100 2xl:h-120 pr-4"> */}
+                  <div className="grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                     {activeData.map((person) => (
                       <div key={person.id} className="rounded-2xl overflow-hidden">
                         <Image
@@ -143,12 +143,12 @@ export default function ApolloCreators() {
                           alt={person.title}
                           width={400}
                           height={300}
-                          className="w-full h-64 object-cover rounded-2xl shadow-md hover:scale-[1.02] transition-transform duration-300"
+                          className="w-full h-64 object-cover object-top rounded-2xl shadow-md hover:scale-[1.02] transition-transform duration-300"
                         />
                       </div>
                     ))}
                   </div>
-                </ScrollArea>
+                {/* </ScrollArea> */}
               </div>
             </div>
             :
