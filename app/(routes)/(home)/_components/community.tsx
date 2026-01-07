@@ -241,7 +241,7 @@ export default function Community() {
                         onClick={() => handleVote(option.id)}
                         className={cn(
                           "cursor-pointer rounded-xl border border-[#2C2C2C26] p-4 transition",
-                          selected === option.id && " bg-transparent",
+                          selected === option.id && " bg-accent",
                           hasVoted && "cursor-default"
                         )}
                       >
